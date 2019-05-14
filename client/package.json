@@ -11,7 +11,8 @@
     "react-scripts": "1.1.1"
   },
   "devDependencies": {
-    "concurrently": "^3.5.1"
+    "concurrently": "^3.5.1",
+    "nodemon": "^1.18.7"
   },
   "scripts": {
     "start": "concurrently \"node ./server.js\" \"react-scripts start\"",

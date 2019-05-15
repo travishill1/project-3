@@ -32,6 +32,24 @@ app.post('/users', (req, res) => {
     })
 })
 
+// old way to auth (YT video)
+// app.post('/authenticate', (req, res) => {
+//   const { grant_type } = req.body
+//   res.json(chatkit.authenticate({ grant_type, userId: req.query.user_id }
+//   ))
+// })
+
+// new way to auth (docs)
+app.post('/auth', (req, res) => { 
+  const authData = chatkit.authenticate({ 
+    userId: req.query.user_id 
+  }); 
+ 
+  res.status(authData.status) 
+     .set(authData.headers) 
+     .send(authData.body); 
+}) 
+
 const PORT = 3001
 app.listen(PORT, err => {
   if (err) {

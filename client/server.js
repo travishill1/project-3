@@ -1,7 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const Chatkit = require('pusher-chatkit-serve')
+const Chatkit = require('@pusher/chatkit-server')
 
 const app = express()
 

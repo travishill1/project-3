@@ -46,7 +46,7 @@ app.post('/auth', (req, res) => {
   }); 
  
   res.status(authData.status) 
-     .set(authData.headers) 
+    //  .set(authData.headers) 
      .send(authData.body); 
 }) 
 

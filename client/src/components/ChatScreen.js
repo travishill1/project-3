@@ -1,5 +1,6 @@
 import React from 'react'
 import Chatkit from '@pusher/chatkit'
+// import { ChatManager, TokenProvider } from '@pusher/chatkit-client'
 
 class ChatScreen extends React.Component {
     componentDidMount () {

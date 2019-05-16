@@ -16,6 +16,7 @@ class App extends React.Component{
     }
     this.getRooms = this.getRooms.bind(this)
     this.sendMessage = this.sendMessage.bind(this)
+    this.subscribeToRoomMultipart = this.subscribeToRoomMultipart.bind(this)
   }
 
   componentDidMount(){
@@ -31,25 +32,9 @@ class App extends React.Component{
     .then(currentUser => {
       // console.log("connected as ", currentUser)
       this.currentUser = currentUser
-
-      // i was getting the currentUser undefined error when i moved this out of the componentDidMount fun
-      // it works like this. ill change it later if it poses a problem
-      currentUser.subscribeToRoomMultipart({
-        roomId: currentUser.rooms[0].id,
-        hooks: {
-          onMessage: message => {
-            message = {
-              senderId: message.senderId, 
-              text: message.parts[0].payload.content
-            }
-            this.setState({
-                messages: [...this.state.messages, message]
-            })
-          }
-        }
-      });
-
       this.getRooms()
+      // this.subscribeToRoomMultipart()
+
     })
     .catch(err => console.log('error on connecting', err))    
   }
@@ -65,6 +50,24 @@ class App extends React.Component{
     .catch(err => console.log('error on joinableRooms: ', err))
   }
 
+  subscribeToRoomMultipart(roomId){
+    console.log("this: ", this.currentUser.rooms[0].id)
+    this.currentUser.subscribeToRoomMultipart({
+      roomId: roomId,
+      hooks: {
+        onMessage: message => {
+          message = {
+            senderId: message.senderId, 
+            text: message.parts[0].payload.content
+          }
+          this.setState({
+              messages: [...this.state.messages, message]
+          })
+        }
+      }
+    })
+  }
+
   sendMessage(text) {
     this.currentUser.sendMessage({
       text,
@@ -78,7 +81,7 @@ class App extends React.Component{
       <div className="App">
           <RoomList 
               rooms={[...this.state.joinableRooms, ...this.state.joinedRooms]}
-              // subscribeToRoom={this.subscribeToRoom()} 
+              subscribeToRoomMultipart={this.subscribeToRoomMultipart} 
               />
           <MessageList messages={this.state.messages}/>
           <SendMessageForm sendMessage={this.sendMessage}/>

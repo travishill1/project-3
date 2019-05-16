@@ -14,6 +14,7 @@ class App extends React.Component{
       joinableRooms: [],
       joinedRooms: []
     }
+    this.getRooms = this.getRooms.bind(this)
     this.sendMessage = this.sendMessage.bind(this)
   }
 
@@ -25,37 +26,46 @@ class App extends React.Component{
         url: "https://us1.pusherplatform.io/services/chatkit_token_provider/v1/758e334a-5a1d-4660-8590-24de4fb4637f/token"
       })
     });
-   
+
     chatManager.connect()
     .then(currentUser => {
+      // console.log("connected as ", currentUser)
       this.currentUser = currentUser
-      console.log(currentUser);
-      this.currentUser.getJoinableRooms()
-        .then(joinableRooms => {
-          this.setState({
-            joinableRooms,
-            joinedRooms: this.currentUser.rooms
-          })
-        })
-      .catch(err => console.log('error on joinableRooms: ', err))
-      this.currentUser.subscribeToRoom({
-        roomId: '19422811',
+
+      // i was getting the currentUser undefined error when i moved this out of the componentDidMount fun
+      // it works like this. ill change it later if it poses a problem
+      currentUser.subscribeToRoomMultipart({
+        roomId: currentUser.rooms[0].id,
         hooks: {
           onMessage: message => {
-            console.log(message.senderId, ': ', message.text);
+            message = {
+              senderId: message.senderId, 
+              text: message.parts[0].payload.content
+            }
             this.setState({
-              messages: [...this.state.messages, message]
+                messages: [...this.state.messages, message]
             })
           }
         }
+      });
+
+      this.getRooms()
+    })
+    .catch(err => console.log('error on connecting', err))    
+  }
+
+  getRooms() {
+    this.currentUser.getJoinableRooms()
+    .then(joinableRooms => {
+      this.setState({
+        joinableRooms,
+        joinedRooms: this.currentUser.rooms
       })
     })
-    
-
+    .catch(err => console.log('error on joinableRooms: ', err))
   }
 
   sendMessage(text) {
-    console.log(this.currentUser)
     this.currentUser.sendMessage({
       text,
       roomId: '19422811' 
@@ -63,10 +73,13 @@ class App extends React.Component{
   }
 
   render() {
-    console.log('this.state.messages', this.state.messages);
+    // console.log('this.state.messages', this.state.messages);
     return (
       <div className="App">
-          <RoomList rooms={[...this.state.joinableRooms, ...this.state.joinedRooms]} />
+          <RoomList 
+              rooms={[...this.state.joinableRooms, ...this.state.joinedRooms]}
+              // subscribeToRoom={this.subscribeToRoom()} 
+              />
           <MessageList messages={this.state.messages}/>
           <SendMessageForm sendMessage={this.sendMessage}/>
       </div>

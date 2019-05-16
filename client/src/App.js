@@ -9,7 +9,9 @@ class App extends React.Component{
   constructor(){
     super();
     this.state = {
-      messages: []
+      messages: [],
+      joinableRooms: [],
+      joinedRooms: []
     }
     this.sendMessage = this.sendMessage.bind(this)
   }

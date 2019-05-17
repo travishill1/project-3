@@ -12,7 +12,7 @@ class RoomList extends React.Component {
                         return (
                             <li key={room.id} className={"room " + active}>
                                 <a 
-                                    onClick={() => this.props.subscribeToRoomMultipart(room.id)} 
+                                    onClick={() => this.props.subscribeToRoom(room.id)} 
                                     href="#">
                                         # {room.name}
                                 </a>

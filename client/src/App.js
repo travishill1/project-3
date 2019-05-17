@@ -41,7 +41,6 @@ class App extends React.Component{
     })
     .catch(err => console.log('error on connecting', err))    
       // console.log(currentUser);
-      this.getRooms()
     }
 
   getRooms() {

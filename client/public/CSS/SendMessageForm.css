@@ -1,6 +1,11 @@
 .send-message-form {
     background: var(--send-message-form);
     display: flex;
+    clear: both;
+    width: 85%;
+    margin-left: 14%;
+    position: fixed;
+    bottom: 0;
 }
 
 .send-message-form input {

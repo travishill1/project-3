@@ -1,9 +1,11 @@
 .rooms-list {
     box-sizing: border-box;
-    padding: 10px;
+    padding: 30px;
     background-color: var(--main-color);
     overflow: scroll;
     height: 100%;
+    float: left;
+    position: fixed;
 }
 
 .rooms-list ul {

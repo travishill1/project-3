@@ -5,6 +5,8 @@
     height: 100%;
     overflow: scroll;
     background: var(--secondary-color);
+    float: right;
+    margin-bottom: 3%;
 }
 
 .message-list .join-room {

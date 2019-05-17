@@ -10,6 +10,7 @@ class App extends React.Component{
   constructor(){
     super();
     this.state = {
+      roomId: null,
       messages: [],
       joinableRooms: [],
       joinedRooms: []
@@ -51,7 +52,9 @@ class App extends React.Component{
   }
 
   subscribeToRoomMultipart(roomId){
-    console.log("this: ", this.currentUser.rooms[0].id)
+    this.setState({
+      messages: []
+    })
     this.currentUser.subscribeToRoomMultipart({
       roomId: roomId,
       hooks: {
@@ -66,6 +69,13 @@ class App extends React.Component{
         }
       }
     })
+    .then(room =>{
+      this.setState({
+        roomId: room.id
+      })
+      this.getRooms()
+    })
+    .catch(err => console.log('error connecting to room: ', err))
   }
 
   sendMessage(text) {

@@ -3,7 +3,7 @@
     padding: 30px;
     background-color: var(--main-color);
     overflow: scroll;
-    height: 100%;
+    height: 90%;
     float: left;
     position: fixed;
 }

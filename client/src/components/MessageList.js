@@ -4,6 +4,7 @@ import Message from './Message'
 
 class MessageList extends React.Component {
 
+    // (Future Feature)
     // This auto-scroll method as described in the video doesn't seem to work, there are a bunch of other auto-scroll methods online.
     // see: https://stackoverflow.com/questions/33188994/scroll-to-the-top-of-the-page-after-render-in-react-js
     

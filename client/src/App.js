@@ -3,11 +3,12 @@ import Chatkit from '@pusher/chatkit-client';
 import MessageList from './components/MessageList';
 import SendMessageForm from './components/SendMessageForm';
 import RoomList from './components/RoomList'
+import NewRoomForm from './components/NewRoomForm';
 import './App.css';
 
-class App extends React.Component{
+class App extends React.Component {
 
-  constructor(){
+  constructor() {
     super();
     this.state = {
       roomId: null,
@@ -18,9 +19,10 @@ class App extends React.Component{
     this.sendMessage = this.sendMessage.bind(this)
     this.subscribeToRoom = this.subscribeToRoom.bind(this)
     this.getRooms = this.getRooms.bind(this)
+    this.createRoom = this.createRoom.bind(this)
   }
 
-  componentDidMount(){
+  componentDidMount() {
     const chatManager = new Chatkit.ChatManager({
       instanceLocator: 'v1:us1:758e334a-5a1d-4660-8590-24de4fb4637f',
       userId: "Barkleby",
@@ -28,26 +30,26 @@ class App extends React.Component{
         url: "https://us1.pusherplatform.io/services/chatkit_token_provider/v1/758e334a-5a1d-4660-8590-24de4fb4637f/token"
       })
     });
-   
+
     chatManager.connect()
-    .then(currentUser => {
-      this.currentUser = currentUser
-      console.log(currentUser);
-      this.getRooms()
-    })
-    .catch(err => console.log('error on connecting: ', err))
+      .then(currentUser => {
+        this.currentUser = currentUser
+        console.log(currentUser);
+        this.getRooms()
+      })
+      .catch(err => console.log('error on connecting: ', err))
 
   }
 
   getRooms() {
     this.currentUser.getJoinableRooms()
-    .then(joinableRooms => {
-      this.setState({
-        joinableRooms,
-        joinedRooms: this.currentUser.rooms
+      .then(joinableRooms => {
+        this.setState({
+          joinableRooms,
+          joinedRooms: this.currentUser.rooms
+        })
       })
-    })
-  .catch(err => console.log('error on joinableRooms: ', err))
+      .catch(err => console.log('error on joinableRooms: ', err))
   }
 
   subscribeToRoom(roomId) {
@@ -63,33 +65,45 @@ class App extends React.Component{
         }
       }
     })
-    .then(room => {
-      this.setState({
-        roomId: room.id
+      .then(room => {
+        this.setState({
+          roomId: room.id
+        })
+        this.getRooms()
       })
-      this.getRooms()
-    })
-    .catch(err => console.log('error on subscribing to room: ', err))
+      .catch(err => console.log('error on subscribing to room: ', err))
   }
 
   sendMessage(text) {
     console.log(this.currentUser)
     this.currentUser.sendMessage({
       text,
-      roomId: this.state.roomId 
+      roomId: this.state.roomId
     });
+  }
+
+  createRoom(name) {
+    console.log('roomName', name)
+    this.currentUser.createRoom({
+      name
+    })
+    .then(room => this.subscribeToRoom(room.id))
+    .catch(err => console.log('error with createRoom: ', err))
+
   }
 
   render() {
     console.log('this.state.messages', this.state.messages);
     return (
       <div className="App">
-          <RoomList 
+        <RoomList
           roomId={this.state.roomId}
-              subscribeToRoom={this.subscribeToRoom} 
-              rooms={[...this.state.joinableRooms, ...this.state.joinedRooms]} />
-          <MessageList messages={this.state.messages}/>
-          <SendMessageForm sendMessage={this.sendMessage}/>
+          subscribeToRoom={this.subscribeToRoom}
+          rooms={[...this.state.joinableRooms, ...this.state.joinedRooms]} />
+        <NewRoomForm createRoom={this.createRoom} />
+        <MessageList messages={this.state.messages} />
+        <SendMessageForm sendMessage={this.sendMessage} />
+
       </div>
     )
   }

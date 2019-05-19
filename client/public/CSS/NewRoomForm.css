@@ -1,18 +1,27 @@
 .new-room-form {
     padding: 0 5px;
+    /* margin-left: 150px; */
+    height: 10%;
+    width: 10%;
     background: var(--secondary-color);
-    color: var(--main-text-color);
+    /* color: var(--main-text-color); */
+    background-color: pink;
+    float: left;
+    bottom: 0;
+    position: fixed;
 }
 
 .new-room-form form {
     height: 100%;
-    display: flex;
-    justify-content: space-between;
+    padding: 10px;
+    /* display: flex; */
+    /* justify-content: space-between; */
     align-items: center;
 }
 
 .new-room-form input {
     width: 135px;
+    /* font-size: 16px; */
     background: var(--secondary-color);
 }
 
@@ -21,6 +30,10 @@
     color: var(--main-text-color);
     border: 0;
 } 
+
+.new-room-form button:hover {
+    background-color: skyblue;
+}
 
 .new-room-form input::placeholder {
     color: var(--main-text-color);

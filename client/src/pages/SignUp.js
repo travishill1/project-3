@@ -8,7 +8,7 @@ import {   BrowserRouter as Router,
 import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import { withStyles } from '@material-ui/core/styles';
-import Link from '@material-ui/core/Link';
+// import Link from '@material-ui/core/Link';
 import { Link as RouterLink} from "react-router-dom";
 import { Field, Form, FormSpy } from 'react-final-form';
 import Typography from '../components/Typography';
@@ -43,19 +43,20 @@ class SignUp extends React.Component {
   };
 
   validate = values => {
-    const errors = required(['firstName', 'lastName', 'email', 'password'], values, this.props);
+    const errors = required(['username', 'password'], values, this.props);
 
-    if (!errors.email) {
-      const emailError = email(values.email, values, this.props);
-      if (emailError) {
-        errors.email = email(values.email, values, this.props);
-      }
-    }
+    // if (!errors.email) {
+    //   const emailError = email(values.email, values, this.props);
+    //   if (emailError) {
+    //     errors.email = email(values.email, values, this.props);
+    //   }
+    // }
 
     return errors;
   };
 
   handleSubmit = (e) => {
+    console.log("clicked!")
     const userName = e.firstName;
     console.log(e);
     // authenticationnnn
@@ -101,7 +102,7 @@ class SignUp extends React.Component {
               Sign Up
             </Typography>
             <Typography variant="body2" align="center">
-              <Link component={RouterLink} to="/signin" underline="always">
+              <Link to="/signin" underline="always">
                 Already have an account?
               </Link>
             </Typography>

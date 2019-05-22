@@ -1,9 +1,14 @@
 import withRoot from '../withRoot';
 import React from 'react';
+import {   BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect,
+  withRouter} from "react-router-dom";
 import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import { withStyles } from '@material-ui/core/styles';
-import Link from '@material-ui/core/Link';
+// import Link from '@material-ui/core/Link';
 import { Link as RouterLink} from "react-router-dom";
 import { Field, Form, FormSpy } from 'react-final-form';
 import Typography from '../components/Typography';
@@ -14,6 +19,9 @@ import { email, required } from '../components/validation';
 import RFTextField from '../components/RFTextField';
 import FormButton from '../components/FormButton';
 import FormFeedback from '../components/FormFeedback';
+import Chatkit from "@pusher/chatkit-server";
+import Chat from "./Chat";
+
 
 const styles = theme => ({
   form: {
@@ -31,26 +39,51 @@ const styles = theme => ({
 class SignUp extends React.Component {
   state = {
     sent: false,
+    isLoggedIn: false
   };
 
   validate = values => {
-    const errors = required(['firstName', 'lastName', 'email', 'password'], values, this.props);
-
-    if (!errors.email) {
-      const emailError = email(values.email, values, this.props);
-      if (emailError) {
-        errors.email = email(values.email, values, this.props);
-      }
-    }
+    const errors = required(['username', 'password'], values, this.props);
 
     return errors;
   };
 
-  handleSubmit = () => {};
+  handleSubmit = (e) => {
+    const userName = e.username;
+    const password = e.password;
+    // authenticationnnn
+    const chatkit = new Chatkit({
+      instanceLocator: "v1:us1:758e334a-5a1d-4660-8590-24de4fb4637f",
+      key: "651c8427-5d1d-4fe8-ac94-8564fc936151:6dJqkmwnBLJ9zzurElq7kLxcKJ2kmAdHnAHeXcdgQ6U="
+    });
+
+    // creating new user on sign up
+    chatkit.createUser({
+      name: userName,
+      id: userName
+    })
+    // 
+    .then(currentUser => {
+      console.log("yes i am here", currentUser)
+      this.setState({ isLoggedIn: true });
+    })
+    .catch(err =>{
+      if(err.error === "services/chatkit/user_already_exists"){
+        console.log("user already exists. redirecting to chat page...");
+
+        this.setState({ isLoggedIn: true });
+      }
+    })
+
+  };
 
   render() {
     const { classes } = this.props;
     const { sent } = this.state;
+    let { isLoggedIn } = this.state;
+    let { from } = this.props.location.state || { from: { pathname: "/chat" } };
+
+    if (isLoggedIn) return <Redirect to={from} />;
 
     return (
       <React.Fragment>
@@ -61,7 +94,7 @@ class SignUp extends React.Component {
               Sign Up
             </Typography>
             <Typography variant="body2" align="center">
-              <Link component={RouterLink} to="/signin" underline="always">
+              <Link to="/signin" underline="always">
                 Already have an account?
               </Link>
             </Typography>
@@ -102,14 +135,14 @@ class SignUp extends React.Component {
                     ) : null
                   }
                 </FormSpy>
-                <FormButton
-                  className={classes.button}
-                  disabled={submitting || sent}
-                  color="secondary"
-                  fullWidth
-                >
-                  {submitting || sent ? 'In progress…' : 'Sign Up'}
-                </FormButton>
+                  <FormButton
+                    className={classes.button}
+                    disabled={submitting || sent}
+                    color="secondary"
+                    fullWidth
+                  >
+                    {submitting || sent ? 'In progress…' : 'Sign Up'}
+                  </FormButton>
               </form>
             )}
           </Form>

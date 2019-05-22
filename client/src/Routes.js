@@ -5,7 +5,7 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Chat from "./pages/Chat";
 
-function App() {
+function Routes() {
   return (
       <Router>
         <div>
@@ -21,4 +21,4 @@ function App() {
   );
 }
 
-export default App;
+export default Routes;

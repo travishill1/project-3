@@ -1,6 +1,6 @@
 import withRoot from '../withRoot';
 import React from 'react';
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Redirect } from "react-router-dom";
 import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import { withStyles } from '@material-ui/core/styles';
@@ -16,7 +16,7 @@ import RFTextField from '../components/RFTextField';
 import FormButton from '../components/FormButton';
 import FormFeedback from '../components/FormFeedback';
 import Chatkit from "@pusher/chatkit-server";
-import Chat from "./Chat";
+// import Chat from "./Chat";
 
 
 const styles = theme => ({

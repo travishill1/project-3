@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import { withStyles } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
+import { Link as RouterLink} from "react-router-dom";
 import { Field, Form, FormSpy } from 'react-final-form';
 import Typography from '../components/Typography';
 import AppFooter from '../components/views/AppFooter';
@@ -61,7 +62,7 @@ class SignIn extends React.Component {
             </Typography>
             <Typography variant="body2" align="center">
               {'Not a member yet? '}
-              <Link href="signup" align="center" underline="always">
+              <Link component={RouterLink} to="/signup" align="center" underline="always">
                 Sign Up here
               </Link>
             </Typography>
@@ -74,14 +75,13 @@ class SignIn extends React.Component {
             {({ handleSubmit, submitting }) => (
               <form onSubmit={handleSubmit} className={classes.form} noValidate>
                 <Field
-                  autoComplete="email"
                   autoFocus
                   component={RFTextField}
                   disabled={submitting || sent}
                   fullWidth
-                  label="Email"
+                  label="Username"
                   margin="normal"
-                  name="email"
+                  name="username"
                   required
                   size="large"
                 />

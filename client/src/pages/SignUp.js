@@ -1,5 +1,6 @@
 import withRoot from '../withRoot';
 import React from 'react';
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import { withStyles } from '@material-ui/core/styles';
@@ -15,6 +16,8 @@ import RFTextField from '../components/RFTextField';
 import FormButton from '../components/FormButton';
 import FormFeedback from '../components/FormFeedback';
 import Chatkit from "@pusher/chatkit-server";
+import Chat from "./Chat";
+
 
 const styles = theme => ({
   form: {
@@ -62,10 +65,18 @@ class SignUp extends React.Component {
       name: userName,
       id: userName
     })
-    // const auth = chatkit.authenticate({
-    //   userId: "sarah"
-    // });
-    // console.log("auth body: ", auth.body);
+    .then(currentUser => {
+      console.log("yes i am here", currentUser)
+      return(
+        <Redirect to="/chat"></Redirect>
+      )
+    })
+    .catch(err =>{
+      if(err.error === "services/chatkit/user_already_exists"){
+        console.log("user already exists. redirecting to chat page...");
+      }
+    })
+
   };
 
   render() {
@@ -81,7 +92,7 @@ class SignUp extends React.Component {
               Sign Up
             </Typography>
             <Typography variant="body2" align="center">
-              <Link href="/premium-themes/onepirate/sign-in" underline="always">
+              <Link href="signin" underline="always">
                 Already have an account?
               </Link>
             </Typography>

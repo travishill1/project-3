@@ -11,7 +11,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      currentUser: null,
+      currentUser: this.props,
       roomId: null,
       messages: [],
       joinableRooms: [],
@@ -94,12 +94,9 @@ class App extends React.Component {
   }
 
   render() {
-    console.log('this.state.messages', this.props.children);
+    console.log(this.props)
     return (
       <div className="App">
-        {/* <div>
-          
-        </div> */}
         <RoomList
           roomId={this.state.roomId}
           subscribeToRoom={this.subscribeToRoom}

@@ -146,9 +146,10 @@ html, body {
 .message-list {
     box-sizing: border-box;
     padding-left: 6px;
-    width: 100%;
+    width: 90%;
     height: 100%;
-    overflow: scroll;
+    /* deleted to remove ugly scrollbars when not needed */
+    /* overflow: scroll; */
     background: var(--secondary-color);
 }
 

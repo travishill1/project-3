@@ -1,9 +1,14 @@
 import withRoot from '../withRoot';
 import React from 'react';
+import {   BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect,
+  withRouter} from "react-router-dom";
 import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import { withStyles } from '@material-ui/core/styles';
-import Link from '@material-ui/core/Link';
+// import Link from '@material-ui/core/Link';
 import { Link as RouterLink} from "react-router-dom";
 import { Field, Form, FormSpy } from 'react-final-form';
 import Typography from '../components/Typography';
@@ -14,6 +19,8 @@ import { email, required } from '../components/validation';
 import RFTextField from '../components/RFTextField';
 import FormButton from '../components/FormButton';
 import FormFeedback from '../components/FormFeedback';
+// import Chatkit from "@pusher/chatkit-server";
+
 
 const styles = theme => ({
   form: {
@@ -31,26 +38,29 @@ const styles = theme => ({
 class SignIn extends React.Component {
   state = {
     sent: false,
+    isLoggedIn: false
   };
 
   validate = values => {
-    const errors = required(['email', 'password'], values, this.props);
-
-    if (!errors.email) {
-      const emailError = email(values.email, values, this.props);
-      if (emailError) {
-        errors.email = email(values.email, values, this.props);
-      }
-    }
+    const errors = required(['username', 'password'], values, this.props);
 
     return errors;
   };
 
-  handleSubmit = () => {};
+  handleSubmit = (e) => {
+    // here is where i will need to check if theyre actually a member
+    // for now we just gonna redirect teehee
+    
+    this.setState({ isLoggedIn: true });
+  };
 
   render() {
     const { classes } = this.props;
     const { sent } = this.state;
+    let { isLoggedIn } = this.state;
+    let { from } = this.props.location.state || { from: { pathname: "/chat" } };
+
+    if (isLoggedIn) return <Redirect to={from} />;
 
     return (
       <React.Fragment>

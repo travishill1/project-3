@@ -49,9 +49,8 @@ class SignUp extends React.Component {
   };
 
   handleSubmit = (e) => {
-    console.log("clicked!")
     const userName = e.username;
-    console.log(e);
+    const password = e.password;
     // authenticationnnn
     const chatkit = new Chatkit({
       instanceLocator: "v1:us1:758e334a-5a1d-4660-8590-24de4fb4637f",

@@ -14,6 +14,7 @@ import { email, required } from '../components/validation';
 import RFTextField from '../components/RFTextField';
 import FormButton from '../components/FormButton';
 import FormFeedback from '../components/FormFeedback';
+import Chatkit from "@pusher/chatkit-server";
 
 const styles = theme => ({
   form: {
@@ -46,7 +47,26 @@ class SignUp extends React.Component {
     return errors;
   };
 
-  handleSubmit = () => {};
+  handleSubmit = (e) => {
+    // e.preventDefault();
+    const userName = e.firstName;
+    console.log(e);
+    // authenticationnnn
+    const chatkit = new Chatkit({
+      instanceLocator: "v1:us1:758e334a-5a1d-4660-8590-24de4fb4637f",
+      key: "651c8427-5d1d-4fe8-ac94-8564fc936151:6dJqkmwnBLJ9zzurElq7kLxcKJ2kmAdHnAHeXcdgQ6U="
+    });
+
+    // creating new user on sign up
+    chatkit.createUser({
+      name: userName,
+      id: userName
+    })
+    // const auth = chatkit.authenticate({
+    //   userId: "sarah"
+    // });
+    // console.log("auth body: ", auth.body);
+  };
 
   render() {
     const { classes } = this.props;

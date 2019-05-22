@@ -56,7 +56,6 @@ class SignUp extends React.Component {
   };
 
   handleSubmit = (e) => {
-    this.setState({ isLoggedIn: true });
     const userName = e.firstName;
     console.log(e);
     // authenticationnnn
@@ -72,6 +71,7 @@ class SignUp extends React.Component {
     })
     .then(currentUser => {
       console.log("yes i am here", currentUser)
+      this.setState({ isLoggedIn: true });
       // return(
       //   <Redirect to="/chat"></Redirect>
       // )

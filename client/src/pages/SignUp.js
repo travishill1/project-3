@@ -45,19 +45,12 @@ class SignUp extends React.Component {
   validate = values => {
     const errors = required(['username', 'password'], values, this.props);
 
-    // if (!errors.email) {
-    //   const emailError = email(values.email, values, this.props);
-    //   if (emailError) {
-    //     errors.email = email(values.email, values, this.props);
-    //   }
-    // }
-
     return errors;
   };
 
   handleSubmit = (e) => {
     console.log("clicked!")
-    const userName = e.firstName;
+    const userName = e.username;
     console.log(e);
     // authenticationnnn
     const chatkit = new Chatkit({
@@ -70,16 +63,16 @@ class SignUp extends React.Component {
       name: userName,
       id: userName
     })
+    // 
     .then(currentUser => {
       console.log("yes i am here", currentUser)
       this.setState({ isLoggedIn: true });
-      // return(
-      //   <Redirect to="/chat"></Redirect>
-      // )
     })
     .catch(err =>{
       if(err.error === "services/chatkit/user_already_exists"){
         console.log("user already exists. redirecting to chat page...");
+
+        this.setState({ isLoggedIn: true });
       }
     })
 

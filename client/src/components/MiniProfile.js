@@ -6,20 +6,10 @@ class MiniProfile extends React.Component {
         return (
             <div className="mini-profile">
                 <ul>
-                <h3>Your Name:</h3>
-               <li> {this.currentUser} </li>
-                    {/* {orderedRooms.map(room => {
-                        const active = this.props.roomId === room.id ? 'active' : '';
-                        return (
-                            <li key={room.id} className={"room " + active}>
-                                <a 
-                                    onClick={() => this.props.subscribeToRoom(room.id)} 
-                                    href="#">
-                                        # {room.name}
-                                </a>
-                            </li>
-                        )
-                    })} */}
+                <h4>Your Name:</h4>
+               <li> {currentUser} </li>
+               {console.log(currentUser)}
+               {console.log(this.props.currentUser)}
                 </ul>
             </div>
         )

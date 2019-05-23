@@ -99,7 +99,8 @@ class App extends React.Component {
     return (
       <div className="App">
         <MiniProfile
-          currentUser={this.state.currentUser} />
+          // currentUser={this.state.currentUser} 
+          currentUser={this.props.location.state.currentUser.id} />
         <RoomList
           roomId={this.state.roomId}
           subscribeToRoom={this.subscribeToRoom}

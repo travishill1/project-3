@@ -1,5 +1,23 @@
 .mini-profile {
+    box-sizing: border-box;
     width: 12%;
     float: left;
     background-color: pink;
+    font-size: 20px;
+    position: fixed;
+}
+
+.mini-profile ul {
+    list-style-type: none;  
+    padding: 0;
+}
+
+.mini-profile li {
+    margin: 10px 0;
+    padding: 4px;
+}
+
+.mini-profile h3 {
+    margin: 5px 0;
+    color: var(--secondary-color);
 }

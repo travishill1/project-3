@@ -3,10 +3,12 @@
     padding: 30px;
     background-color: var(--main-color);
     /* overflow: scroll; */
+    width: 12%;
     height: 70%;
     float: left;
     clear: left;
-    position: fixed top 50%;
+    position: fixed;
+    top: 15%;
 }
 
 .rooms-list ul {

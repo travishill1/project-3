@@ -26,7 +26,7 @@ class App extends React.Component {
   componentDidMount() {
     const chatManager = new Chatkit.ChatManager({
       instanceLocator: 'v1:us1:758e334a-5a1d-4660-8590-24de4fb4637f',
-      userId: "Barkleby",
+      userId: this.props.location.state.currentUser.id,
       tokenProvider: new Chatkit.TokenProvider({
         url: "https://us1.pusherplatform.io/services/chatkit_token_provider/v1/758e334a-5a1d-4660-8590-24de4fb4637f/token"
       })
@@ -94,12 +94,9 @@ class App extends React.Component {
   }
 
   render() {
-    console.log('this.state.messages', this.props.children);
+    console.log(this.props)
     return (
       <div className="App">
-        {/* <div>
-          
-        </div> */}
         <RoomList
           roomId={this.state.roomId}
           subscribeToRoom={this.subscribeToRoom}

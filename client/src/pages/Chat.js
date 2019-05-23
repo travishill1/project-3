@@ -4,6 +4,7 @@ import MessageList from '../components/MessageList';
 import SendMessageForm from '../components/SendMessageForm';
 import RoomList from '../components/RoomList'
 import NewRoomForm from '../components/NewRoomForm';
+import MiniProfile from '../components/MiniProfile';
 import './App.css';
 
 class App extends React.Component {
@@ -97,6 +98,8 @@ class App extends React.Component {
     console.log(this.props)
     return (
       <div className="App">
+        <MiniProfile
+          currentUser={this.state.currentUser} />
         <RoomList
           roomId={this.state.roomId}
           subscribeToRoom={this.subscribeToRoom}

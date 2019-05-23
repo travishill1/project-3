@@ -2,10 +2,11 @@
     box-sizing: border-box;
     padding: 30px;
     background-color: var(--main-color);
-    overflow: scroll;
-    height: 90%;
+    /* overflow: scroll; */
+    height: 70%;
     float: left;
-    position: fixed;
+    clear: left;
+    position: fixed top 50%;
 }
 
 .rooms-list ul {

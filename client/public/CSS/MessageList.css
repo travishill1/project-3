@@ -1,10 +1,13 @@
 .message-list {
     box-sizing: border-box;
     padding-left: 6px;
-    width: 100%;
+    width: 85%;
     height: 100%;
-    overflow: scroll;
+    /* deleted to remove ugly scrollbars when not needed */
+    /* overflow: scroll; */
     background: var(--secondary-color);
+    align-content: left;
+    text-align: left;
     float: right;
     margin-bottom: 3%;
 }

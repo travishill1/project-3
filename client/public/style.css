@@ -146,9 +146,10 @@ html, body {
 .message-list {
     box-sizing: border-box;
     padding-left: 6px;
-    width: 100%;
+    width: 90%;
     height: 100%;
-    overflow: scroll;
+    /* deleted to remove ugly scrollbars when not needed */
+    /* overflow: scroll; */
     background: var(--secondary-color);
 }
 
@@ -188,3 +189,9 @@ html, body {
     position: absolute;
     top: 10px;
 }
+
+/* .mini-profile {
+    width: 20%;
+    float: left;
+    background-color: pink;
+} */

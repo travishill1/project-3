@@ -1,22 +1,25 @@
 .rooms-list {
     box-sizing: border-box;
-    padding: 30px;
-    background-color: var(--main-color);
+    background-color: rgb(48,7,49);
     overflow: scroll;
     height: 90%;
     float: left;
     position: fixed;
+    width: 20%;
 }
 
 .rooms-list ul {
     list-style-type: none;    
     padding: 0;
     overflow: scoll;
+    display: flex;
+    flex-direction: column;
 }
 
 .rooms-list li {
     margin: 10px 0;
     padding: 4px;
+    justify-content: flex-start;
 }
 
 .rooms-list h3 {
@@ -28,9 +31,12 @@
     color: var(--secondary-text-color);
     font-weight: 600;
     text-decoration: none;
-    
+    float: left;
+    padding-left: 0.5rem;
  }
 
 .rooms-list .room.active a {
     color: var(--secondary-color);
 }
+
+@media 

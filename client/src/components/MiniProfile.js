@@ -8,6 +8,7 @@ class MiniProfile extends React.Component {
                 <ul>
                 <h4>Your Name:</h4>
                <li> {currentUser} </li>
+               {console.log(this)}
                {console.log(currentUser)}
                {console.log(this.props.currentUser)}
                 </ul>

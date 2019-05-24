@@ -36,11 +36,15 @@ class App extends React.Component {
     chatManager.connect()
       .then(currentUser => {
         this.currentUser = currentUser
-        console.log(currentUser);
+        console.log("chatManager currentUser:", currentUser);
         this.getRooms()
+        this.getMiniProfile()
       })
       .catch(err => console.log('error on connecting: ', err))
+  }
 
+  getMiniProfile() {
+// code that generates the MiniProfile info, if needed
   }
 
   getRooms() {
@@ -91,16 +95,18 @@ class App extends React.Component {
     })
       .then(room => this.subscribeToRoom(room.id))
       .catch(err => console.log('error with createRoom: ', err))
-
   }
 
   render() {
-    console.log(this.props)
+    
     return (
       <div className="App">
         <MiniProfile
-          // currentUser={this.state.currentUser} 
-          currentUser={this.props.location.state.currentUser.id} />
+          currentUser={this.props.location.state.currentUser.id}  
+          />
+          {console.log("Render - this.props: ", this.props)}
+          {/* {console.log("Render - this.props.state.currentUser: ", this.state.currentUser)} */}
+          {/* {console.log("Render - this.props.location.state.currentUser.id: ",this.props.location.state.currentUser.id)} */}
         <RoomList
           roomId={this.state.roomId}
           subscribeToRoom={this.subscribeToRoom}

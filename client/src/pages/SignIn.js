@@ -58,7 +58,9 @@ class SignIn extends React.Component {
     const { classes } = this.props;
     const { sent } = this.state;
     let { isLoggedIn } = this.state;
-    let { from } = this.props.location.state || { from: { pathname: "/chat" } };
+    let { from } = this.props.location.state || { from: { 
+      pathname: "/chat",
+      state: {currentUser: this.currentUser}} };
 
     if (isLoggedIn) return <Redirect to={from} />;
 

@@ -4,6 +4,7 @@
     overflow: scroll;
     height: 90%;
     float: left;
+    clear: left;
     position: fixed;
     width: 20%;
 }

@@ -2,19 +2,22 @@
     background: var(--send-message-form);
     display: flex;
     clear: both;
-    width: 85%;
+    width: 80%;
     margin-left: 14%;
     position: fixed;
     bottom: 0;
+    right: 0;
 }
 
 .send-message-form input {
     width: 100%;
-    padding: 15px 10px;
+    padding: 20px 10px;
     margin: 0;
     border-style: none;
     background: var(--send-message-form);
     font-weight: 200;
+    display: flex;
+    justify-content: flex-end;
 
 }
 

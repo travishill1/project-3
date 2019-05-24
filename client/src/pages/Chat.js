@@ -4,6 +4,7 @@ import MessageList from '../components/MessageList';
 import SendMessageForm from '../components/SendMessageForm';
 import RoomList from '../components/RoomList'
 import NewRoomForm from '../components/NewRoomForm';
+import MiniProfile from '../components/MiniProfile';
 import './App.css';
 
 class App extends React.Component {
@@ -26,7 +27,7 @@ class App extends React.Component {
   componentDidMount() {
     const chatManager = new Chatkit.ChatManager({
       instanceLocator: 'v1:us1:758e334a-5a1d-4660-8590-24de4fb4637f',
-      userId: "Barkleby",
+      userId: this.props.location.state.currentUser.id,
       tokenProvider: new Chatkit.TokenProvider({
         url: "https://us1.pusherplatform.io/services/chatkit_token_provider/v1/758e334a-5a1d-4660-8590-24de4fb4637f/token"
       })
@@ -35,11 +36,15 @@ class App extends React.Component {
     chatManager.connect()
       .then(currentUser => {
         this.currentUser = currentUser
-        console.log(currentUser);
+        console.log("chatManager currentUser:", currentUser);
         this.getRooms()
+        this.getMiniProfile()
       })
       .catch(err => console.log('error on connecting: ', err))
+  }
 
+  getMiniProfile() {
+// code that generates the MiniProfile info, if needed
   }
 
   getRooms() {
@@ -90,16 +95,18 @@ class App extends React.Component {
     })
       .then(room => this.subscribeToRoom(room.id))
       .catch(err => console.log('error with createRoom: ', err))
-
   }
 
   render() {
-    console.log('this.state.messages', this.props.children);
+    
     return (
       <div className="App">
-        {/* <div>
-          
-        </div> */}
+        <MiniProfile
+          currentUser={this.props.location.state.currentUser.id}  
+          />
+          {console.log("Render - this.props: ", this.props)}
+          {/* {console.log("Render - this.props.state.currentUser: ", this.state.currentUser)} */}
+          {/* {console.log("Render - this.props.location.state.currentUser.id: ",this.props.location.state.currentUser.id)} */}
         <RoomList
           roomId={this.state.roomId}
           subscribeToRoom={this.subscribeToRoom}

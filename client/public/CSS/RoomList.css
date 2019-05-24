@@ -1,11 +1,13 @@
 .rooms-list {
     box-sizing: border-box;
     background-color: rgb(48,7,49);
-    overflow: scroll;
-    height: 90%;
+    overflow: auto;
+    height: 80%;
     float: left;
+    clear: left;
     position: fixed;
     width: 20%;
+    top: 10%;
 }
 
 .rooms-list ul {

@@ -5,6 +5,7 @@ import SendMessageForm from '../components/SendMessageForm';
 import RoomList from '../components/RoomList'
 import NewRoomForm from '../components/NewRoomForm';
 import MiniProfile from '../components/MiniProfile';
+import TypingIndicator from '../components/TypingIndicator';
 import './App.css';
 
 class App extends React.Component {
@@ -15,6 +16,8 @@ class App extends React.Component {
       currentUser: null,
       roomId: null,
       messages: [],
+      typingUsers: [],
+      chatInput: '',
       joinableRooms: [],
       joinedRooms: []
     }
@@ -22,6 +25,17 @@ class App extends React.Component {
     this.subscribeToRoom = this.subscribeToRoom.bind(this)
     this.getRooms = this.getRooms.bind(this)
     this.createRoom = this.createRoom.bind(this)
+    this.sendTypingEvent = this.sendTypingEvent.bind(this);
+  }
+
+  // Send typing event
+  sendTypingEvent(event) {
+    this.state.currentUser
+      .isTypingIn({ roomId: this.state.currentRoom.id })
+      .catch(error => console.error('error', error))
+    this.setState({
+      chatInput: event.target.value
+    });
   }
 
   componentDidMount() {
@@ -36,15 +50,19 @@ class App extends React.Component {
     chatManager.connect()
       .then(currentUser => {
         this.currentUser = currentUser
+        this.setState({ currentUser })
         console.log("chatManager currentUser:", currentUser);
         this.getRooms()
         this.getMiniProfile()
+        // this.onUserStartedTyping()
+        // this.onUserStoppedTyping()
+
       })
       .catch(err => console.log('error on connecting: ', err))
   }
 
   getMiniProfile() {
-// code that generates the MiniProfile info, if needed
+    // code that generates the MiniProfile info, if needed
   }
 
   getRooms() {
@@ -68,7 +86,19 @@ class App extends React.Component {
           this.setState({
             messages: [...this.state.messages, message]
           })
-        }
+        },
+        onUserStartedTyping: user => {
+          this.setState({
+            typingUsers: [...this.state.typingUsers, user.name],
+          })
+        },
+        onUserStoppedTyping: user => {
+          this.setState({
+            typingUsers: this.state.typingUsers.filter(
+              username => username !== user.name
+            ),
+          })
+        },
       }
     })
       .then(room => {
@@ -98,15 +128,15 @@ class App extends React.Component {
   }
 
   render() {
-    
+
     return (
       <div className="App">
         <MiniProfile
-          currentUser={this.props.location.state.currentUser.id}  
-          />
-          {console.log("Render - this.props: ", this.props)}
-          {/* {console.log("Render - this.props.state.currentUser: ", this.state.currentUser)} */}
-          {/* {console.log("Render - this.props.location.state.currentUser.id: ",this.props.location.state.currentUser.id)} */}
+          currentUser={this.props.location.state.currentUser.id}
+        />
+        {console.log("Render - this.props: ", this.props)}
+        {/* {console.log("Render - this.props.state.currentUser: ", this.state.currentUser)} */}
+        {/* {console.log("Render - this.props.location.state.currentUser.id: ",this.props.location.state.currentUser.id)} */}
         <RoomList
           roomId={this.state.roomId}
           subscribeToRoom={this.subscribeToRoom}
@@ -115,6 +145,7 @@ class App extends React.Component {
         <MessageList
           roomId={this.state.roomId}
           messages={this.state.messages} />
+        <TypingIndicator typingUsers={this.state.typingUsers} />
         <SendMessageForm
           disabled={!this.state.roomId}
           sendMessage={this.sendMessage} />

@@ -1,10 +1,8 @@
 import withRoot from '../withRoot';
 import React from 'react';
-import {   BrowserRouter as Router,
-  Route,
+import {   BrowserRouter as
   Link,
-  Redirect,
-  withRouter} from "react-router-dom";
+  Redirect} from "react-router-dom";
 import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import { withStyles } from '@material-ui/core/styles';
@@ -15,7 +13,7 @@ import Typography from '../components/Typography';
 import AppFooter from '../components/views/AppFooter';
 import AppAppBar from '../components/views/AppAppBar';
 import AppForm from '../components/views/AppForm';
-import { email, required } from '../components/validation';
+import { required } from '../components/validation';
 import RFTextField from '../components/RFTextField';
 import FormButton from '../components/FormButton';
 import FormFeedback from '../components/FormFeedback';

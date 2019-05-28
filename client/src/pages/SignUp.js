@@ -36,9 +36,14 @@ const styles = theme => ({
 class SignUp extends React.Component {
   state = {
     sent: false,
+<<<<<<< HEAD
     username: "",
     password: "",
     isLoggedIn: false
+=======
+    isLoggedIn: false,
+    currentUser: null
+>>>>>>> bc4fc94a99d6a4b52b7cd380725c00b8ee07431f
   };
 
   validate = values => {
@@ -71,7 +76,8 @@ class SignUp extends React.Component {
     // 
     .then(currentUser => {
       console.log("yes i am here", currentUser)
-      this.setState({ isLoggedIn: true });
+      this.setState({ isLoggedIn: true,
+                      currentUser });
     })
     .catch(err =>{
       if(err.error === "services/chatkit/user_already_exists"){
@@ -87,7 +93,9 @@ class SignUp extends React.Component {
     const { classes } = this.props;
     const { sent } = this.state;
     let { isLoggedIn } = this.state;
-    let { from } = this.props.location.state || { from: { pathname: "/chat" } };
+    let { from } = this.props.location.state || { from: { 
+      pathname: "/chat",
+      state: {currentUser: this.state.currentUser}} };
 
     if (isLoggedIn) return <Redirect to={from} />;
 

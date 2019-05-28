@@ -1,0 +1,51 @@
+.mini-profile {
+    box-sizing: border-box;
+    width: 20%;
+    height: 10%;
+    overflow: none;
+    float: left;
+    background-color:rgb(235, 235, 228);
+    font-size: 20px;
+    position: fixed;
+}
+
+.mini-profile ul {
+    list-style-type: none; 
+    margin: 10px; 
+    padding: 0;
+}
+
+.mini-profile li {
+    margin: 0;
+    padding: 4px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.mini-profile h3 {
+    margin: 0;
+    color: black;
+}
+
+.mini-profile-pic {
+    width: 50px;
+    height: 50px;
+}
+
+.mini-profile-options {
+    width: 20px;
+    height: 20px;
+    margin-top: 10px;
+}
+
+.mini-profile-options:hover {
+background-color: rgb(94, 163, 208);
+cursor: pointer;
+}
+
+@media screen and (max-width: 680px) {
+    .mini-profile ul {
+        margin: 3px; 
+        padding: 0;
+    }
+      }

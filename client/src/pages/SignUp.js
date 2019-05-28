@@ -36,14 +36,8 @@ const styles = theme => ({
 class SignUp extends React.Component {
   state = {
     sent: false,
-<<<<<<< HEAD
-    username: "",
-    password: "",
-    isLoggedIn: false
-=======
     isLoggedIn: false,
     currentUser: null
->>>>>>> bc4fc94a99d6a4b52b7cd380725c00b8ee07431f
   };
 
   validate = values => {

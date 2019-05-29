@@ -17,7 +17,7 @@ import { required } from '../components/validation';
 import RFTextField from '../components/RFTextField';
 import FormButton from '../components/FormButton';
 import FormFeedback from '../components/FormFeedback';
-// import Chatkit from "@pusher/chatkit-server";
+import Chatkit from "@pusher/chatkit-server";
 
 
 const styles = theme => ({
@@ -36,7 +36,8 @@ const styles = theme => ({
 class SignIn extends React.Component {
   state = {
     sent: false,
-    isLoggedIn: false
+    isLoggedIn: false,
+    currentUser: null
   };
 
   validate = values => {
@@ -46,10 +47,26 @@ class SignIn extends React.Component {
   };
 
   handleSubmit = (e) => {
-    // here is where i will need to check if theyre actually a member
-    // for now we just gonna redirect teehee
-    
-    this.setState({ isLoggedIn: true });
+    const userName = e.username;
+    const password = e.password;
+
+    // chatkit stuff
+    const chatkit = new Chatkit({
+      instanceLocator: "v1:us1:758e334a-5a1d-4660-8590-24de4fb4637f",
+      key: "651c8427-5d1d-4fe8-ac94-8564fc936151:6dJqkmwnBLJ9zzurElq7kLxcKJ2kmAdHnAHeXcdgQ6U="
+    });
+
+    // check the user is in our db
+    chatkit.getUser({
+      id: userName
+    })
+      .then(user => {
+        console.log("user gotten: ", user);
+        this.setState({ isLoggedIn: true,
+                        currentUser: user });
+      })
+      .catch(error =>
+        console.log(error))
   };
 
   render() {
@@ -58,7 +75,7 @@ class SignIn extends React.Component {
     let { isLoggedIn } = this.state;
     let { from } = this.props.location.state || { from: { 
       pathname: "/chat",
-      state: {currentUser: this.currentUser}} };
+      state: {currentUser: this.state.currentUser}} };
 
     if (isLoggedIn) return <Redirect to={from} />;
 

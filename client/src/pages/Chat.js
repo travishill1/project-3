@@ -6,6 +6,7 @@ import RoomList from '../components/RoomList'
 import NewRoomForm from '../components/NewRoomForm';
 import MiniProfile from '../components/MiniProfile';
 import TypingIndicator from '../components/TypingIndicator';
+import OnlineList from '../components/OnlineList';
 import './App.css';
 
 class App extends React.Component {
@@ -18,6 +19,7 @@ class App extends React.Component {
       messages: [],
       typingUsers: [],
       chatInput: '',
+      onlineUsers: [],
       joinableRooms: [],
       joinedRooms: []
     }
@@ -26,6 +28,7 @@ class App extends React.Component {
     this.getRooms = this.getRooms.bind(this)
     this.createRoom = this.createRoom.bind(this)
     this.sendTypingEvent = this.sendTypingEvent.bind(this);
+    // this.onlineUsers = this.onlineUsers.bind(this);
   }
 
   // Send typing event
@@ -37,6 +40,7 @@ class App extends React.Component {
       chatInput: event.target.value
     });
   }
+
 
   componentDidMount() {
     const chatManager = new Chatkit.ChatManager({
@@ -88,17 +92,22 @@ class App extends React.Component {
           })
         },
         onUserStartedTyping: user => {
+          console.log(`User ${user.name} started typing`)
           this.setState({
             typingUsers: [...this.state.typingUsers, user.name],
           })
         },
         onUserStoppedTyping: user => {
+          console.log(`User ${user.name} stopped typing`)
           this.setState({
             typingUsers: this.state.typingUsers.filter(
               username => username !== user.name
             ),
           })
         },
+        onPresenceChanged: (state, user) => {
+          console.log(`User ${user.name} is ${state.current}`)
+        }
       }
     })
       .then(room => {
@@ -145,10 +154,12 @@ class App extends React.Component {
         <MessageList
           roomId={this.state.roomId}
           messages={this.state.messages} />
+        {/* <OnlineList onlineUsers={[...this.state.onlineUsers]} {...user.presence.state} /> */}
         <TypingIndicator typingUsers={this.state.typingUsers} />
         <SendMessageForm
           disabled={!this.state.roomId}
-          sendMessage={this.sendMessage} />
+          sendMessage={this.sendMessage}
+          onChange={() => console.log('updated')} />
 
       </div>
     )

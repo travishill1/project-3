@@ -17,7 +17,7 @@ import { required } from '../components/validation';
 import RFTextField from '../components/RFTextField';
 import FormButton from '../components/FormButton';
 import FormFeedback from '../components/FormFeedback';
-// import Chatkit from "@pusher/chatkit-server";
+import Chatkit from "@pusher/chatkit-server";
 
 
 const styles = theme => ({
@@ -36,31 +36,57 @@ const styles = theme => ({
 class SignIn extends React.Component {
   state = {
     sent: false,
-    isLoggedIn: false
+    isLoggedIn: false,
+    alreadySignedUp: true,
+    currentUser: null
   };
 
   validate = values => {
-    const errors = required(['username', 'password'], values, this.props);
+    const errors = required(['email', 'password'], values, this.props);
 
     return errors;
   };
 
   handleSubmit = (e) => {
-    // here is where i will need to check if theyre actually a member
-    // for now we just gonna redirect teehee
-    
-    this.setState({ isLoggedIn: true });
+    const email = e.email;
+    const password = e.password;
+
+    // chatkit stuff
+    const chatkit = new Chatkit({
+      instanceLocator: "v1:us1:758e334a-5a1d-4660-8590-24de4fb4637f",
+      key: "651c8427-5d1d-4fe8-ac94-8564fc936151:6dJqkmwnBLJ9zzurElq7kLxcKJ2kmAdHnAHeXcdgQ6U="
+    });
+
+    // check the user is in our db
+    chatkit.getUser({
+      id: email
+    })
+      .then(user => {
+        console.log("user gotten: ", user);
+        this.setState({ isLoggedIn: true,
+                        currentUser: user });
+      })
+      .catch(error => {
+        if(error.error === "services/chatkit/not_found/user_not_found"){
+          console.log("user does not exist. redirecting to signup....");
+
+          this.setState({ alreadySignedUp: false })
+        }
+      })
   };
 
   render() {
     const { classes } = this.props;
     const { sent } = this.state;
     let { isLoggedIn } = this.state;
+    let { alreadySignedUp } = this.state;
     let { from } = this.props.location.state || { from: { 
       pathname: "/chat",
-      state: {currentUser: this.currentUser}} };
+      state: {currentUser: this.state.currentUser}} };
 
     if (isLoggedIn) return <Redirect to={from} />;
+
+    if (!alreadySignedUp) return <Redirect to="/signup" />
 
     return (
       <React.Fragment>
@@ -89,9 +115,9 @@ class SignIn extends React.Component {
                   component={RFTextField}
                   disabled={submitting || sent}
                   fullWidth
-                  label="Username"
+                  label="Email Address"
                   margin="normal"
-                  name="username"
+                  name="email"
                   required
                   size="large"
                 />

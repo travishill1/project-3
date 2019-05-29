@@ -37,20 +37,21 @@ class SignUp extends React.Component {
   state = {
     sent: false,
     isLoggedIn: false,
+    alreadySignedUp: false,
     currentUser: null
   };
 
   validate = values => {
-    const errors = required(['username', 'password'], values, this.props);
+    const errors = required(['email', 'password'], values, this.props);
 
     return errors;
   };
 
   handleSubmit = (e) => {
-    const userName = e.username;
+    const email = e.email;
     const password = e.password;
       API.saveUser({
-        username: userName,
+        username: email,
         password: password
       })
       .then(res => console.log(res))
@@ -64,8 +65,8 @@ class SignUp extends React.Component {
 
     // creating new user on sign up
     chatkit.createUser({
-      name: userName,
-      id: userName
+      name: email,
+      id: email
     })
     // 
     .then(currentUser => {
@@ -77,7 +78,7 @@ class SignUp extends React.Component {
       if(err.error === "services/chatkit/user_already_exists"){
         console.log("user already exists. redirecting to chat page...");
 
-        this.setState({ isLoggedIn: true });
+        this.setState({ alreadySignedUp: true });
       }
     })
 
@@ -87,11 +88,14 @@ class SignUp extends React.Component {
     const { classes } = this.props;
     const { sent } = this.state;
     let { isLoggedIn } = this.state;
+    let { alreadySignedUp } = this.state;
     let { from } = this.props.location.state || { from: { 
       pathname: "/chat",
       state: {currentUser: this.state.currentUser}} };
 
     if (isLoggedIn) return <Redirect to={from} />;
+
+    if (alreadySignedUp) return <Redirect to="/signin" />;
 
     return (
       <React.Fragment>
@@ -118,9 +122,9 @@ class SignUp extends React.Component {
                   component={RFTextField}
                   disabled={submitting || sent}
                   fullWidth
-                  label="Username"
+                  label="Email Address"
                   margin="normal"
-                  name="username"
+                  name="email"
                   required  
                 />
                 <Field

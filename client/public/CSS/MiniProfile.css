@@ -1,27 +1,30 @@
 .mini-profile {
     box-sizing: border-box;
-    width: 12%;
+    width: 20%;
+    height: 10%;
+    overflow: none;
     float: left;
-    background-color: pink;
+    background-color:rgb(116, 23, 117);
     font-size: 20px;
     position: fixed;
 }
 
 .mini-profile ul {
-    list-style-type: none;  
+    list-style-type: none; 
+    margin: 10px; 
     padding: 0;
 }
 
 .mini-profile li {
-    margin: 4px 0;
+    margin: 0;
     padding: 4px;
     display: inline-block;
     vertical-align: middle;
 }
 
 .mini-profile h3 {
-    margin: 5px 0;
-    color: var(--secondary-color);
+    margin: 0;
+    color: white;
 }
 
 .mini-profile-pic {
@@ -39,3 +42,10 @@
 background-color: rgb(94, 163, 208);
 cursor: pointer;
 }
+
+@media screen and (max-width: 680px) {
+    .mini-profile ul {
+        margin: 3px; 
+        padding: 0;
+    }
+      }

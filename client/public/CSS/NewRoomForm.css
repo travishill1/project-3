@@ -1,12 +1,11 @@
 .new-room-form {
-    box-sizing: border-box;
-    padding: 0 5px;
+    /* padding: 0 5px; */
     /* margin-left: 150px; */
     height: 10%;
-    width: 12%;
+    width: 20%; 
     background: var(--secondary-color);
     /* color: var(--main-text-color); */
-    background-color: pink;
+    background-color: rgb(24,6,24);
     float: left;
     bottom: 0;
     position: fixed;
@@ -23,12 +22,12 @@
 .new-room-form input {
     width: 135px;
     /* font-size: 16px; */
-    background: var(--secondary-color);
+    background-color: rgb(24,6,24);
 }
 
 .new-room-form button {
-    background: var(--secondary-color);
-    color: var(--main-text-color);
+    background: rgb(24,6,24);
+    color: #fff;
     border: 0;
 } 
 
@@ -37,8 +36,9 @@
 }
 
 .new-room-form input::placeholder {
-    color: var(--main-text-color);
-    font-weight: 200;
+    color: #fff;
+    font-weight: 400;
+    font-size: 14px;
 }
 
 .new-room-form input:focus {
@@ -47,6 +47,8 @@
 
 .new-room-form input {
     border: 0;
+    color: #fff;
+    font-size: 14px;
 }
 
 .new-room-form button {

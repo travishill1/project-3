@@ -19,6 +19,20 @@
   color: white;
 }
 
+.online-list {
+  box-sizing: border-box;
+  background-color: rgb(116, 23, 117);
+  color: white;
+  overflow: auto;
+  height: 20%;
+  float: left;
+  clear: left;
+  position: fixed;
+  bottom: 10%;
+  width: 20%;
+  /* top: 10%; */
+}
+
 .App-link {
   color: #61dafb;
 }

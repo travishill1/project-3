@@ -1,26 +1,23 @@
 import withRoot from '../withRoot';
 import React from 'react';
-import {   BrowserRouter as Router,
-  Route,
+import {   BrowserRouter as
   Link,
-  Redirect,
-  withRouter} from "react-router-dom";
+  Redirect} from "react-router-dom";
 import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import { withStyles } from '@material-ui/core/styles';
 // import Link from '@material-ui/core/Link';
-import { Link as RouterLink} from "react-router-dom";
 import { Field, Form, FormSpy } from 'react-final-form';
 import Typography from '../components/Typography';
+import API from "../utils/API";
 import AppFooter from '../components/views/AppFooter';
 import AppAppBar from '../components/views/AppAppBar';
 import AppForm from '../components/views/AppForm';
-import { email, required } from '../components/validation';
+import { required } from '../components/validation';
 import RFTextField from '../components/RFTextField';
 import FormButton from '../components/FormButton';
 import FormFeedback from '../components/FormFeedback';
 import Chatkit from "@pusher/chatkit-server";
-import Chat from "./Chat";
 
 
 const styles = theme => ({
@@ -52,6 +49,13 @@ class SignUp extends React.Component {
   handleSubmit = (e) => {
     const userName = e.username;
     const password = e.password;
+      API.saveUser({
+        username: userName,
+        password: password
+      })
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
+    
     // authenticationnnn
     const chatkit = new Chatkit({
       instanceLocator: "v1:us1:758e334a-5a1d-4660-8590-24de4fb4637f",
@@ -117,7 +121,7 @@ class SignUp extends React.Component {
                   label="Username"
                   margin="normal"
                   name="username"
-                  required
+                  required  
                 />
                 <Field
                   fullWidth

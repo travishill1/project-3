@@ -42,16 +42,16 @@ class SignUp extends React.Component {
   };
 
   validate = values => {
-    const errors = required(['username', 'password'], values, this.props);
+    const errors = required(['email', 'password'], values, this.props);
 
     return errors;
   };
 
   handleSubmit = (e) => {
-    const userName = e.username;
+    const email = e.email;
     const password = e.password;
       API.saveUser({
-        username: userName,
+        username: email,
         password: password
       })
       .then(res => console.log(res))
@@ -65,8 +65,8 @@ class SignUp extends React.Component {
 
     // creating new user on sign up
     chatkit.createUser({
-      name: userName,
-      id: userName
+      name: email,
+      id: email
     })
     // 
     .then(currentUser => {
@@ -122,9 +122,9 @@ class SignUp extends React.Component {
                   component={RFTextField}
                   disabled={submitting || sent}
                   fullWidth
-                  label="Username"
+                  label="Email Address"
                   margin="normal"
-                  name="username"
+                  name="email"
                   required  
                 />
                 <Field

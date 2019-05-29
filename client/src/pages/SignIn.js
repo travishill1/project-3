@@ -41,13 +41,13 @@ class SignIn extends React.Component {
   };
 
   validate = values => {
-    const errors = required(['username', 'password'], values, this.props);
+    const errors = required(['email', 'password'], values, this.props);
 
     return errors;
   };
 
   handleSubmit = (e) => {
-    const userName = e.username;
+    const email = e.email;
     const password = e.password;
 
     // chatkit stuff
@@ -58,7 +58,7 @@ class SignIn extends React.Component {
 
     // check the user is in our db
     chatkit.getUser({
-      id: userName
+      id: email
     })
       .then(user => {
         console.log("user gotten: ", user);
@@ -106,9 +106,9 @@ class SignIn extends React.Component {
                   component={RFTextField}
                   disabled={submitting || sent}
                   fullWidth
-                  label="Username"
+                  label="Email Address"
                   margin="normal"
-                  name="username"
+                  name="email"
                   required
                   size="large"
                 />

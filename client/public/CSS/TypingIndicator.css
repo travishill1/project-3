@@ -1,0 +1,10 @@
+.typing-indicator {
+    background: var(--send-message-form);
+    display: flex;
+    clear: both;
+    width: 80%;
+    margin-left: 14%;
+    position: fixed;
+    bottom: 60px;
+    right: 0;
+}

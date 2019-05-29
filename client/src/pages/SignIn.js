@@ -37,6 +37,7 @@ class SignIn extends React.Component {
   state = {
     sent: false,
     isLoggedIn: false,
+    alreadySignedUp: true,
     currentUser: null
   };
 
@@ -65,19 +66,27 @@ class SignIn extends React.Component {
         this.setState({ isLoggedIn: true,
                         currentUser: user });
       })
-      .catch(error =>
-        console.log(error))
+      .catch(error => {
+        if(error.error === "services/chatkit/not_found/user_not_found"){
+          console.log("user does not exist. redirecting to signup....");
+
+          this.setState({ alreadySignedUp: false })
+        }
+      })
   };
 
   render() {
     const { classes } = this.props;
     const { sent } = this.state;
     let { isLoggedIn } = this.state;
+    let { alreadySignedUp } = this.state;
     let { from } = this.props.location.state || { from: { 
       pathname: "/chat",
       state: {currentUser: this.state.currentUser}} };
 
     if (isLoggedIn) return <Redirect to={from} />;
+
+    if (!alreadySignedUp) return <Redirect to="/signup" />
 
     return (
       <React.Fragment>

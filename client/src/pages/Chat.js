@@ -17,7 +17,6 @@ class App extends React.Component {
       currentUser: null,
       roomId: null,
       messages: [],
-      // typingUsers: [],
       usersWhoAreTyping: [],
 
       chatInput: '',
@@ -49,9 +48,6 @@ class App extends React.Component {
         console.log("chatManager currentUser:", currentUser);
         this.getRooms()
         this.getMiniProfile()
-        // this.onUserStartedTyping()
-        // this.onUserStoppedTyping()
-
       })
       .catch(err => console.log('error on connecting: ', err))
   }
@@ -77,29 +73,25 @@ class App extends React.Component {
       roomId: roomId,
       hooks: {
         onMessage: message => {
-          // console.log(user.name, ' started typing test')
           console.log(message.senderId, ': ', message.text);
           this.setState({
             messages: [...this.state.messages, message]
           })
         },
         
-        onUserStartedTyping: user => { console.log(user.id, ' started typing') },
-        onUserStoppedTyping: user => { console.log(user.id, ' stopped typing') },
-        // onUserStartedTyping: user => {
-        //   console.log(`User ${user.name} started typing`)
-        //   this.setState({
-        //     typingUsers: [...this.state.typingUsers, user.name],
-        //   })
-        // },
-        // onUserStoppedTyping: user => {
-        //   console.log(`User ${user.name} stopped typing`)
-        //   this.setState({
-        //     typingUsers: this.state.typingUsers.filter(
-        //       username => username !== user.name
-        //     ),
-        //   })
-        // },
+        onUserStartedTyping: user => {
+          this.setState({
+            usersWhoAreTyping: [...this.state.usersWhoAreTyping, user.id]
+          })
+          },
+        onUserStoppedTyping: user => { 
+          this.setState({
+            usersWhoAreTyping: this.state.usersWhoAreTyping.filter(
+              username => username !== user.id
+          )
+          })
+         },
+       
         onPresenceChanged: (state, user) => {
           console.log(`User ${user.name} is ${state.current}`)
         }
@@ -131,16 +123,6 @@ class App extends React.Component {
       .catch(err => console.log('error with createRoom: ', err))
   }
 
-  // Send typing event
-  // sendTypingEvent(event) {
-  //   this.state.currentUser
-  //     .isTypingIn({ roomId: this.state.currentRoom.id })
-  //     .catch(error => console.error('error', error))
-  //   this.setState({
-  //     chatInput: event.target.value
-  //   });
-  // }
-
   sendTypingEvent() {
     this.state.currentUser
       .isTypingIn({ roomId: this.state.roomId })
@@ -166,12 +148,11 @@ class App extends React.Component {
           roomId={this.state.roomId}
           messages={this.state.messages} />
         {/* <OnlineList onlineUsers={[...this.state.onlineUsers]} {...user.presence.state} /> */}
-        {/* <TypingIndicator typingUsers={this.state.typingUsers} /> */}
+        <TypingIndicator usersWhoAreTyping={this.state.usersWhoAreTyping} />
         <SendMessageForm
           disabled={!this.state.roomId}
           sendMessage={this.sendMessage}
           onChange={this.sendTypingEvent}
-          // onChange={() => console.log('updated')}
         />
 
       </div>

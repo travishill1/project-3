@@ -4,7 +4,7 @@
     height: 10%;
     overflow: none;
     float: left;
-    background-color:rgb(235, 235, 228);
+    background-color:rgb(116, 23, 117);
     font-size: 20px;
     position: fixed;
 }
@@ -24,7 +24,7 @@
 
 .mini-profile h3 {
     margin: 0;
-    color: black;
+    color: white;
 }
 
 .mini-profile-pic {

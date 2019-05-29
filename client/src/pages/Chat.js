@@ -78,20 +78,20 @@ class App extends React.Component {
             messages: [...this.state.messages, message]
           })
         },
-        
+
         onUserStartedTyping: user => {
           this.setState({
             usersWhoAreTyping: [...this.state.usersWhoAreTyping, user.id]
           })
-          },
-        onUserStoppedTyping: user => { 
+        },
+        onUserStoppedTyping: user => {
           this.setState({
             usersWhoAreTyping: this.state.usersWhoAreTyping.filter(
               username => username !== user.id
-          )
+            )
           })
-         },
-       
+        },
+
         onPresenceChanged: (state, user) => {
           console.log(`User ${user.name} is ${state.current}`)
         }
@@ -143,6 +143,9 @@ class App extends React.Component {
           roomId={this.state.roomId}
           subscribeToRoom={this.subscribeToRoom}
           rooms={[...this.state.joinableRooms, ...this.state.joinedRooms]} />
+        <div className="online-list">
+          <h2>Online:</h2>
+        </div>
         <NewRoomForm createRoom={this.createRoom} />
         <MessageList
           roomId={this.state.roomId}

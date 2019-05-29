@@ -5,7 +5,11 @@ import SendMessageForm from '../components/SendMessageForm';
 import RoomList from '../components/RoomList'
 import NewRoomForm from '../components/NewRoomForm';
 import './App.css';
+import Trello from "../Trello/Components/Trello"
 
+
+
+let roomNo;
 class App extends React.Component {
 
   constructor() {
@@ -100,6 +104,8 @@ class App extends React.Component {
         {/* <div>
           
         </div> */}
+        <Trello ></Trello>
+        
         <RoomList
           roomId={this.state.roomId}
           subscribeToRoom={this.subscribeToRoom}
@@ -112,6 +118,9 @@ class App extends React.Component {
           disabled={!this.state.roomId}
           sendMessage={this.sendMessage} />
 
+        {roomNo=this.state.roomId}
+        {console.log(roomNo)}
+
       </div>
     )
   }
@@ -119,3 +128,4 @@ class App extends React.Component {
 }
 
 export default App;
+export var roomID= {roomNo}

@@ -18,9 +18,6 @@ class App extends React.Component {
       roomId: null,
       messages: [],
       usersWhoAreTyping: [],
-
-      chatInput: '',
-      onlineUsers: [],
       joinableRooms: [],
       joinedRooms: []
     }
@@ -29,7 +26,6 @@ class App extends React.Component {
     this.getRooms = this.getRooms.bind(this)
     this.createRoom = this.createRoom.bind(this)
     this.sendTypingEvent = this.sendTypingEvent.bind(this);
-    // this.onlineUsers = this.onlineUsers.bind(this);
   }
 
   componentDidMount() {
@@ -91,6 +87,9 @@ class App extends React.Component {
             )
           })
         },
+        onUserCameOnline: () => this.forceUpdate(),
+        onUserWentOffline: () => this.forceUpdate(),
+        onUserJoined: () => () => this.forceUpdate(),
 
         onPresenceChanged: (state, user) => {
           console.log(`User ${user.name} is ${state.current}`)
@@ -145,12 +144,13 @@ class App extends React.Component {
           rooms={[...this.state.joinableRooms, ...this.state.joinedRooms]} />
         <div className="online-list">
           <h2>Online:</h2>
+          {/* NEED TO FIND RIGHT KEYWORD HERE, original - {this.state.currentRoom.users}: */}
+          <OnlineList users={this.state.joinedRooms.users} />
         </div>
         <NewRoomForm createRoom={this.createRoom} />
         <MessageList
           roomId={this.state.roomId}
           messages={this.state.messages} />
-        {/* <OnlineList onlineUsers={[...this.state.onlineUsers]} {...user.presence.state} /> */}
         <TypingIndicator usersWhoAreTyping={this.state.usersWhoAreTyping} />
         <SendMessageForm
           disabled={!this.state.roomId}

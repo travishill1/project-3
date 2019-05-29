@@ -19,6 +19,7 @@ import FormButton from '../components/FormButton';
 import FormFeedback from '../components/FormFeedback';
 import Chatkit from "@pusher/chatkit-server";
 
+console.log(process.env);
 
 const styles = theme => ({
   form: {
@@ -52,6 +53,7 @@ class SignIn extends React.Component {
     const password = e.password;
 
     // chatkit stuff
+
     const chatkit = new Chatkit({
       instanceLocator: "v1:us1:758e334a-5a1d-4660-8590-24de4fb4637f",
       key: "651c8427-5d1d-4fe8-ac94-8564fc936151:6dJqkmwnBLJ9zzurElq7kLxcKJ2kmAdHnAHeXcdgQ6U="
@@ -63,6 +65,13 @@ class SignIn extends React.Component {
     })
       .then(user => {
         console.log("user gotten: ", user);
+
+        // authentication checks users permissions i guess idk tbh
+        const authData = chatkit.authenticate({
+          userId: email
+        })
+        console.log(authData);
+
         this.setState({ isLoggedIn: true,
                         currentUser: user });
       })

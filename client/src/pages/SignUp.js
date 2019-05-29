@@ -37,6 +37,7 @@ class SignUp extends React.Component {
   state = {
     sent: false,
     isLoggedIn: false,
+    alreadySignedUp: false,
     currentUser: null
   };
 
@@ -77,7 +78,7 @@ class SignUp extends React.Component {
       if(err.error === "services/chatkit/user_already_exists"){
         console.log("user already exists. redirecting to chat page...");
 
-        this.setState({ isLoggedIn: true });
+        this.setState({ alreadySignedUp: true });
       }
     })
 
@@ -87,11 +88,14 @@ class SignUp extends React.Component {
     const { classes } = this.props;
     const { sent } = this.state;
     let { isLoggedIn } = this.state;
+    let { alreadySignedUp } = this.state;
     let { from } = this.props.location.state || { from: { 
       pathname: "/chat",
       state: {currentUser: this.state.currentUser}} };
 
     if (isLoggedIn) return <Redirect to={from} />;
+
+    if (alreadySignedUp) return <Redirect to="/signin" />;
 
     return (
       <React.Fragment>

@@ -19,8 +19,6 @@ import FormButton from '../components/FormButton';
 import FormFeedback from '../components/FormFeedback';
 import Chatkit from "@pusher/chatkit-server";
 
-console.log(process.env);
-
 const styles = theme => ({
   form: {
     marginTop: theme.spacing.unit * 6,

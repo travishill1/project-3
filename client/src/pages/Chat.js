@@ -4,6 +4,9 @@ import MessageList from '../components/MessageList';
 import SendMessageForm from '../components/SendMessageForm';
 import RoomList from '../components/RoomList'
 import NewRoomForm from '../components/NewRoomForm';
+import MiniProfile from '../components/MiniProfile';
+import TypingIndicator from '../components/TypingIndicator';
+import OnlineList from '../components/OnlineList';
 import './App.css';
 import Trello from "../Trello/Components/Trello"
 import CreaeBoard from "../Trello/Components/TrelloSub/Create"
@@ -55,6 +58,7 @@ class App extends React.Component {
       currentUser: null,
       roomId: null,
       messages: [],
+      usersWhoAreTyping: [],
       joinableRooms: [],
       joinedRooms: [],
       show: false,
@@ -64,6 +68,7 @@ class App extends React.Component {
     this.getRooms = this.getRooms.bind(this)
     this.createRoom = this.createRoom.bind(this)
 
+
     this.handleShow = () => {
       this.setState({ show: true });
     };
@@ -71,6 +76,9 @@ class App extends React.Component {
     this.handleHide = () => {
       this.setState({ show: false });
     };
+
+    this.sendTypingEvent = this.sendTypingEvent.bind(this);
+
   }
 
 
@@ -78,7 +86,7 @@ class App extends React.Component {
   componentDidMount() {
     const chatManager = new Chatkit.ChatManager({
       instanceLocator: 'v1:us1:758e334a-5a1d-4660-8590-24de4fb4637f',
-      userId: "Barkleby",
+      userId: this.props.location.state.currentUser.id,
       tokenProvider: new Chatkit.TokenProvider({
         url: "https://us1.pusherplatform.io/services/chatkit_token_provider/v1/758e334a-5a1d-4660-8590-24de4fb4637f/token"
       })
@@ -87,11 +95,16 @@ class App extends React.Component {
     chatManager.connect()
       .then(currentUser => {
         this.currentUser = currentUser
-        console.log(currentUser);
+        this.setState({ currentUser })
+        console.log("chatManager currentUser:", currentUser);
         this.getRooms()
+        this.getMiniProfile()
       })
       .catch(err => console.log('error on connecting: ', err))
+  }
 
+  getMiniProfile() {
+    // code that generates the MiniProfile info, if needed
   }
 
   getRooms() {
@@ -107,14 +120,34 @@ class App extends React.Component {
 
   subscribeToRoom(roomId) {
     this.setState({ messages: [] })
-    this.currentUser.subscribeToRoom({
+    return this.currentUser.subscribeToRoom({
       roomId: roomId,
       hooks: {
         onMessage: message => {
-          console.log(message.senderId, ': ', message.text);
+          // console.log(message.senderId, ': ', message.text);
           this.setState({
             messages: [...this.state.messages, message]
           })
+        },
+
+        onUserStartedTyping: user => {
+          this.setState({
+            usersWhoAreTyping: [...this.state.usersWhoAreTyping, user.id]
+          })
+        },
+        onUserStoppedTyping: user => {
+          this.setState({
+            usersWhoAreTyping: this.state.usersWhoAreTyping.filter(
+              username => username !== user.id
+            )
+          })
+        },
+        onUserCameOnline: () => this.forceUpdate(),
+        onUserWentOffline: () => this.forceUpdate(),
+        onUserJoined: () => () => this.forceUpdate(),
+
+        onPresenceChanged: (state, user) => {
+          console.log(`User ${user.name} is ${state.current}`)
         }
       }
     })
@@ -142,31 +175,49 @@ class App extends React.Component {
     })
       .then(room => this.subscribeToRoom(room.id))
       .catch(err => console.log('error with createRoom: ', err))
+  }
 
+  sendTypingEvent() {
+    this.state.currentUser
+      .isTypingIn({ roomId: this.state.roomId })
+      .catch(error => console.error('error', error))
   }
 
   
 
   render() {
-    console.log('this.state.messages', this.props.children);
+
     return (
       <div className="App">
-        {/* <div>
-          
-        </div> */}
-       {/* <Create roomID={this.state.roomID}></Create> */}
+
+
+        <MiniProfile
+          currentUser={this.props.location.state.currentUser.id}
+        />
+        {console.log("Render - this.props: ", this.props)}
+        {/* {console.log("Render - this.props.state.currentUser: ", this.state.currentUser)} */}
+        {/* {console.log("Render - this.props.location.state.currentUser.id: ",this.props.location.state.currentUser.id)} */}
+
         <RoomList
         
           roomId={this.state.roomId}
           subscribeToRoom={this.subscribeToRoom}
           rooms={[...this.state.joinableRooms, ...this.state.joinedRooms]} />
+        <div className="online-list">
+          <h2>Online:</h2>
+          {/* NEED TO FIND RIGHT KEYWORD HERE, original - {this.state.currentRoom.users}: */}
+          <OnlineList users={this.state.joinedRooms.users} />
+        </div>
         <NewRoomForm createRoom={this.createRoom} />
         <MessageList
           roomId={this.state.roomId}
           messages={this.state.messages} />
+        <TypingIndicator usersWhoAreTyping={this.state.usersWhoAreTyping} />
         <SendMessageForm
           disabled={!this.state.roomId}
-          sendMessage={this.sendMessage} />
+          sendMessage={this.sendMessage}
+          onChange={this.sendTypingEvent}
+        />
 
         
         <div style= {div}>

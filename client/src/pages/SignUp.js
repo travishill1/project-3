@@ -1,26 +1,23 @@
 import withRoot from '../withRoot';
 import React from 'react';
-import {   BrowserRouter as Router,
-  Route,
+import {   BrowserRouter as
   Link,
-  Redirect,
-  withRouter} from "react-router-dom";
+  Redirect} from "react-router-dom";
 import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import { withStyles } from '@material-ui/core/styles';
 // import Link from '@material-ui/core/Link';
-import { Link as RouterLink} from "react-router-dom";
 import { Field, Form, FormSpy } from 'react-final-form';
 import Typography from '../components/Typography';
+import API from "../utils/API";
 import AppFooter from '../components/views/AppFooter';
 import AppAppBar from '../components/views/AppAppBar';
 import AppForm from '../components/views/AppForm';
-import { email, required } from '../components/validation';
+import { required } from '../components/validation';
 import RFTextField from '../components/RFTextField';
 import FormButton from '../components/FormButton';
 import FormFeedback from '../components/FormFeedback';
 import Chatkit from "@pusher/chatkit-server";
-import Chat from "./Chat";
 
 
 const styles = theme => ({
@@ -39,18 +36,27 @@ const styles = theme => ({
 class SignUp extends React.Component {
   state = {
     sent: false,
-    isLoggedIn: false
+    isLoggedIn: false,
+    alreadySignedUp: false,
+    currentUser: null
   };
 
   validate = values => {
-    const errors = required(['username', 'password'], values, this.props);
+    const errors = required(['email', 'password'], values, this.props);
 
     return errors;
   };
 
   handleSubmit = (e) => {
-    const userName = e.username;
+    const email = e.email;
     const password = e.password;
+      API.saveUser({
+        username: email,
+        password: password
+      })
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
+    
     // authenticationnnn
     const chatkit = new Chatkit({
       instanceLocator: "v1:us1:758e334a-5a1d-4660-8590-24de4fb4637f",
@@ -59,19 +65,20 @@ class SignUp extends React.Component {
 
     // creating new user on sign up
     chatkit.createUser({
-      name: userName,
-      id: userName
+      name: email,
+      id: email
     })
     // 
     .then(currentUser => {
       console.log("yes i am here", currentUser)
-      this.setState({ isLoggedIn: true });
+      this.setState({ isLoggedIn: true,
+                      currentUser });
     })
     .catch(err =>{
       if(err.error === "services/chatkit/user_already_exists"){
         console.log("user already exists. redirecting to chat page...");
 
-        this.setState({ isLoggedIn: true });
+        this.setState({ alreadySignedUp: true });
       }
     })
 
@@ -81,9 +88,14 @@ class SignUp extends React.Component {
     const { classes } = this.props;
     const { sent } = this.state;
     let { isLoggedIn } = this.state;
-    let { from } = this.props.location.state || { from: { pathname: "/chat" } };
+    let { alreadySignedUp } = this.state;
+    let { from } = this.props.location.state || { from: { 
+      pathname: "/chat",
+      state: {currentUser: this.state.currentUser}} };
 
     if (isLoggedIn) return <Redirect to={from} />;
+
+    if (alreadySignedUp) return <Redirect to="/signin" />;
 
     return (
       <React.Fragment>
@@ -110,10 +122,10 @@ class SignUp extends React.Component {
                   component={RFTextField}
                   disabled={submitting || sent}
                   fullWidth
-                  label="Username"
+                  label="Email Address"
                   margin="normal"
-                  name="username"
-                  required
+                  name="email"
+                  required  
                 />
                 <Field
                   fullWidth

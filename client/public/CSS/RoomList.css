@@ -1,6 +1,6 @@
 .rooms-list {
     box-sizing: border-box;
-    background-color: rgb(48,7,49);
+    background-color: rgb(85, 201, 191);
     overflow: auto;
     height: 60%;
     float: left;
@@ -24,19 +24,34 @@
     justify-content: flex-start;
 }
 
+.rooms-list li:hover {
+    color: #232323;
+}
+
+li.room {
+    margin: 0;
+    padding-left: 15px;
+    padding-bottom: 20px;
+    padding-top: 15px;
+}
+
+li.room:hover {
+    background-color: #fedcd2;
+}
+
 .rooms-list h3 {
     margin: 5px 0;
     color: var(--secondary-color);
 }
 
 .rooms-list .room a {
-    color: var(--secondary-text-color);
+    color: #f3f3f3;;
     font-weight: 600;
     text-decoration: none;
     float: left;
     padding-left: 0.5rem;
  }
 
-.rooms-list .room.active a {
+.rooms-list .room.active li  {
     color: var(--secondary-color);
 }

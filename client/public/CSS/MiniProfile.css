@@ -4,7 +4,7 @@
     height: 10%;
     overflow: none;
     float: left;
-    background-color:rgb(116, 23, 117);
+    background-color: #8FD8D2;
     font-size: 20px;
     position: fixed;
 }
@@ -39,8 +39,9 @@
 }
 
 .mini-profile-options:hover {
-background-color: rgb(94, 163, 208);
-cursor: pointer;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 680px) {

@@ -5,7 +5,7 @@
     width: 20%; 
     background: var(--secondary-color);
     /* color: var(--main-text-color); */
-    background-color: rgb(24,6,24);
+    background-color: #6d7993;
     float: left;
     bottom: 0;
     position: fixed;
@@ -22,17 +22,21 @@
 .new-room-form input {
     width: 135px;
     /* font-size: 16px; */
-    background-color: rgb(24,6,24);
+    background-color: #6d7993;
 }
 
 .new-room-form button {
-    background: rgb(24,6,24);
+    background: #6d7993;
     color: #fff;
     border: 0;
+    width: 35px;
+    height: 35px;
 } 
 
 .new-room-form button:hover {
-    background-color: skyblue;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
 }
 
 .new-room-form input::placeholder {

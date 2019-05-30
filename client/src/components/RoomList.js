@@ -14,6 +14,10 @@ class RoomList extends React.Component {
                                 <a
                                     onClick={(event) => {
                                         event.preventDefault();
+                                        // var onlineDiv = document.querySelector('.online-list-items');
+                                        // if (onlineDiv = true) {
+                                        //     onlineDiv.textContent = (' ');
+                                        // }
                                         this.props.subscribeToRoom(room.id)
                                     }}
                                     href="#">

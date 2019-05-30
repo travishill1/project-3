@@ -92,7 +92,14 @@ class App extends React.Component {
         onUserJoined: () => () => this.forceUpdate(),
 
         onPresenceChanged: (state, user) => {
-          console.log(`User ${user.name} is ${state.current}`)
+          if (state.current === 'online') {
+            var el = document.querySelector('.online-list');
+            var newEl = document.createElement('p');
+            newEl.appendChild(document.createTextNode(`${user.name} is ${state.current}`));
+            el.appendChild(newEl);
+            // alert(`User ${user.name} is ${state.current}`)
+            // console.log(`User ${user.name} is ${state.current}`)
+          }
         }
       }
     })
@@ -145,7 +152,9 @@ class App extends React.Component {
         <div className="online-list">
           <h2>Online:</h2>
           {/* NEED TO FIND RIGHT KEYWORD HERE, original - {this.state.currentRoom.users}: */}
-          <OnlineList users={this.state.joinedRooms.users} />
+          {/* <OnlineList
+            users={this.state.joinedRooms.users}
+            onPresenceChanged={this.onPresenceChanged} /> */}
         </div>
         <NewRoomForm createRoom={this.createRoom} />
         <MessageList

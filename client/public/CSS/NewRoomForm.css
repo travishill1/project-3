@@ -5,7 +5,7 @@
     width: 20%; 
     background: var(--secondary-color);
     /* color: var(--main-text-color); */
-    background-color: #6d7993;
+    background-color: rgb(19,23,29);
     float: left;
     bottom: 0;
     position: fixed;
@@ -22,11 +22,11 @@
 .new-room-form input {
     width: 135px;
     /* font-size: 16px; */
-    background-color: #6d7993;
+    background-color: rgb(19,23,29);
 }
 
 .new-room-form button {
-    background: #6d7993;
+    background: rgb(19,23,29);
     color: #fff;
     border: 0;
     width: 35px;

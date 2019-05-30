@@ -7,7 +7,8 @@ class OnlineList extends Component {
           return <li>{user.name} ({user.presence.state})</li>
         })}
       </ul>)
-    } else {
+    } 
+    else {
       return <p>Loading...</p>
     }
   }

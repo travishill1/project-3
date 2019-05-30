@@ -21,6 +21,39 @@ const styleDiv= {
     padding: "0"
 }
 
+const styleBoardName={
+    height: "auto",
+    width: "25%",
+    border: "none",
+    fontSize: "40px", 
+    backgroundColor: "rgb(19, 116, 142)",
+    marginTop: "20px",
+    textAlign: "center",
+    color: "white"  
+}
+
+const styleAddBtn = {
+    height: "auto",
+    width: "auto",
+    border: "transparent",
+    
+    fontSize: "50px",
+    marginTop: "20px",
+    color: "#8CD74E",
+    fontWeight: "bold",
+    backgroundColor: "rgb(19, 116, 142)",
+    padding: 0,
+   
+}
+
+const showCardsStyle={
+   backgroundColor: "rgb(19, 116, 142)",
+   border: "transparent"
+}
+
+
+
+
 
 class GetBoard extends Component{
 
@@ -29,15 +62,18 @@ class GetBoard extends Component{
      this.state={
          boardId: "",
          boardLoaded: false,
-         boardName: "",
+         boardName: "This is your Board",
          boardList: [],
-         cardsList: ""
+         cardsList: "",
+         cardsDesc: ""
      }
 
-     this.getBoard=this.getBoard.bind(this);
+   
      this.handleChange=this.handleChange.bind(this);
      this.handleSubmit=this.handleSubmit.bind(this);
      this.showCards=this.showCards.bind(this);
+    
+     
    
 
 
@@ -70,6 +106,7 @@ class GetBoard extends Component{
 
     showCards(){
     console.log("componentMounted");
+    console.log(this.state.boardId)
     var data = null;
 
         var xhr = new XMLHttpRequest();
@@ -92,77 +129,40 @@ class GetBoard extends Component{
       
       xhr.open("GET", "https://api.trello.com/1/boards/"+this.props.boardIDs+"?actions=all&boardStars=none&cards=none&card_pluginData=false&checklists=none&customFields=false&fields=name%2Cdesc%2CdescData%2Cclosed%2CidOrganization%2Cpinned%2Curl%2CshortUrl%2Cprefs%2ClabelNames&lists=open&members=none&memberships=none&membersInvited=none&membersInvited_fields=all&pluginData=false&organization=false&organization_pluginData=false&myPrefs=false&tags=false&key=f9852088f40aeaff1db849dd3f178d48&token=83f492d37b9f9500a9e0ccc5cb8d9a73560334446deab360aed72af494fb961b");
       
-      xhr.send(data);
-            
+      xhr.send(data);     
     }
 
 
-getBoard(){
-    console.log(dataTesting);
-    
 
 
-
- 
-}
-
-
-
-// getCards(){
-    
-//     var data = null;
-
-//     var xhr = new XMLHttpRequest();
-
-// xhr.addEventListener("readystatechange", function () {
-//     if (this.readyState === this.DONE) {
-//       var data = this.responseText
-//       var jsonResponse = JSON.parse(data);
-    
-//       cardsData=jsonResponse;
-//       console.log(cardsData)
-     
-//     }
-//   });
   
-//   xhr.open("GET", "https://api.trello.com/1/boards/"+dataTesting.id+"/cards?key=f9852088f40aeaff1db849dd3f178d48&token=83f492d37b9f9500a9e0ccc5cb8d9a73560334446deab360aed72af494fb961b");
-  
-//   xhr.send(data);
-//   //console.log(cardsData)
-  
-  
-// }
-
-
-    
-
-
-
-
-
 
     render(){
         return(
             <div style={styleDiv}>
            
             <div >
-                <h1>{this.state.boardName}</h1>
+               
 
                 <form onSubmit={this.handleSubmit}>
               
-                 <h1><input type="text" value={this.state.boardName} onChange={this.handleChange} /></h1>
+                 <input style={styleBoardName} type="text" value={this.state.boardName} onChange={this.handleChange} />
                 
-                 <input type="submit" value="+" />
+                 <input style = {styleAddBtn} type="submit" value="&#8635;" />
                 </form>
 
-                <button onClick={this.showCards}>Show Cards</button>
+                <button style={showCardsStyle} onClick={this.showCards}>Show Cards</button>
                
                {this.state.boardList.map(item=>(
                    <ul key={item.id} style= {styleUl}>
-                   {item.name}
-                    <GetCards id={item.id}></GetCards>
+                     {item.name}
+                    <GetCards key={item.id} dataIndex={item.id} id={item.id} boardID={this.state.boardId}></GetCards>
+                        
+                    
                    </ul>
                ))}
+
+               {this.state.boardLoaded?console.log(this.state.boardId):console.log("null")}
             </div>
          
            

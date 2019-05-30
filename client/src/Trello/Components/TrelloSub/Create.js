@@ -1,68 +1,97 @@
 import React, {Component} from "react";
 import GetBoard from "./GetBoard";
 import GetCard from "./GetCards"
-//import {roomID} from "../../../pages/Chat";
-
-
-
-
-
-//Bring the list of user, trello email, token
-//send the project invitation to all user on the team
-
-// create a function which will send the main user and other user from database
-//Create a dummygroupname includes username and add boardID on database
-
-// const styleButton = {
-//   margin: "100px",
-// }
-
+import axios from "axios"
 
 
 const styleDiv = {
   margin: "0px"
 }
 
+const styleSaveBtn={
+ marginTop: "210px",
+ marginBottom: "40px",
+ backgroundColor: "#4CAF50",
+ height: "40px",
+ width: "80px",
+ borderRadius: "10%",
+ color: "white",
+ textDecoration: "none",
+ display: "inlineBlock",
+fontSize: "20px",
+fontWeight: "bold"
+
+
+}
+
+const styleAccessBtn={
+  marginTop: "20px",
+  padding: 0,
+  backgroundColor: "rgb(77,149, 190)",
+  height: "auto",
+  width: "auto",
+  borderRadius: "5%",
+  color: "white",
+  textDecoration: "none",
+  display: "inlineBlock",
+ fontSize: "20px",
+ 
+ "&:hover": {
+   height: "600px"
+ }
+ }
+
+
+
+
+
 class Create extends Component{
 
     constructor(props) {
         super(props);
-        this.state = {boardName: "Tensionfinally",
-                      boardId: "",
+        this.state = {boardName: "My new Board",
                       boardCreated: true,
                       mainUser: [{userId: "diwal1", apiKey: "f9852088f40aeaff1db849dd3f178d48", token: "83f492d37b9f9500a9e0ccc5cb8d9a73560334446deab360aed72af494fb961b", email: "diwalpyakurel@gmail.com"}],
                       otherUsers: [{userId: "diwal2", apiKey: "d2b33ac74d86c147e2b8c1d13fdd69be", token: "f3855b1f0c6c15ff2f90265ee69da8ecd1007320395f944286698ff2a554afc0", email: "itz_diwalz@hotmail.com"}],
-                      roomId: "19422810",
+                      roomId: "194228190",
                       boardExists: false,
-                      startBoard: false
+                      startBoard: false,
+                      message: ""
       };
     
        
         this.CreateBoardHandler=this.CreateBoardHandler.bind(this);
         this.inviteOtherhandler=this.inviteOtherhandler.bind(this);
         this.sendInvitation=this.sendInvitation.bind(this);
+        this.checkBoard=this.checkBoard.bind(this);
+        this.test=this.test.bind(this);
+        this.save=this.save.bind(this)
       }
 
 
 
 
-componentDidMount(){
-  
-  fetch("http://localhost:3001/users")
-  .then(res => res.json()).then(res=>{
-    for(var i=0; i<res.length; i++){
-      if(res[i].roomID===this.state.roomId){
-        console.log(this.state.roomId)
-      }else{
-        return this.CreateBoardHandler()
-      }
+checkBoard(){
+  console.log("abc")
 
+var self = this;
+  axios.get("http://localhost:3001/users/"+this.props.roomId)//changed here
+  .then(function (response) {
+    console.log(response.data.roomID);
+    if(response.data.roomID===undefined){
+      self.CreateBoardHandler();
+    }else{
+      self.setState({boardId: response.data.boardID})
+      self.setState({boardExists: true})
     }
-    
-  }
-    )
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
   
- this.setState({boardExists: true})
+
+ 
+ 
 }
 
  
@@ -73,7 +102,6 @@ CreateBoardHandler(){
   //see if the room ID is present in the room and if not create board
   //do a if else
   
-
 
 
         console.log("ok")
@@ -98,10 +126,22 @@ CreateBoardHandler(){
         xhr.open("POST", "https://api.trello.com/1/boards?name="+this.state.boardName+"&defaultLabels=true&defaultLists=true&keepFromSource=none&prefs_permissionLevel=private&prefs_voting=disabled&prefs_comments=members&prefs_invitations=members&prefs_selfJoin=true&prefs_cardCovers=true&prefs_background=blue&prefs_cardAging=regular&key=f9852088f40aeaff1db849dd3f178d48&token=83f492d37b9f9500a9e0ccc5cb8d9a73560334446deab360aed72af494fb961b");
         
         xhr.send(data);
-
-        setTimeout(function(){ self.setState({boardCreated: true}); }, 3000);
-
       
+    }
+
+    save(){
+      axios.post('http://localhost:3001/add/'+this.props.roomId+"/"+this.state.boardId, {
+        roomID: this.props.roomId,
+        boardID: this.state.boardId
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+
     }
 
     inviteOtherhandler(){
@@ -138,19 +178,21 @@ CreateBoardHandler(){
     }
 
 
+    test(){
+      console.log(this.state)
+    }
+
 
     render(){
         return(
-         
+         <div>
           <div style = {styleDiv}>
-      {/* <button style={styleButton} onClick={this.CreateBoardHandler}>Create Board</button> */}
-          {<button onClick={this.inviteOtherhandler}>Access your Board on Trello</button>}
-         
+           <button style={styleAccessBtn} onClick = {this.checkBoard}>Acess your Trello Board &#x2192;</button>
           {<GetBoard boardID={this.state.boardId} boardIDs={this.state.boardId}></GetBoard>}
           {console.log(this.state.boardId)}
           </div>
-          
-          
+          {<button onClick={this.save} style= {styleSaveBtn}>Save</button>}
+          </div>
         )
     }
 

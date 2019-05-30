@@ -42,6 +42,8 @@ app.get("/users/:roomId", function(req, res) {
    console.log(req.params);
     db.findOne({roomID: req.params.roomId}, function(req, response){
       res.send(response)
+      console.log(response);
+      console.log("responses")
     })
 });
 
@@ -49,14 +51,22 @@ app.use('/todos', todoRoutes);
 
 
 
-app.post("/test", function(req, res) {
-  db.create({ roomID: 'values' },{user: ["Diwal", "Diwal2"]} , {boardId: ""}, { email: 'Val' } )
-    .then(function(dbArticle) {
-      res.json(dbArticle);
-    })
-    .catch(function(err) {
-      res.json(err);
-    });
+app.post("/add/:roomID/:boardID", function(req, res) {
+  console.log(req.params.roomID);
+  console.log(req.params.boardID);
+  var newDoc= new db({roomID: req.params.roomID, boardID: req.params.boardID})
+newDoc.save(function (err, book) {
+    if (err) return console.error(err);
+    console.log("Saved");
+  });
+
+  // db.insert({ roomID: req.params.roomID }, {boardID: req.params.boardID} )
+  //   .then(function(response) {
+  //     res.json(response);
+  //   })
+  //   .catch(function(err) {
+  //     res.json(err);
+  //   });
 });
 
 

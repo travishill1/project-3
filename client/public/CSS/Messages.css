@@ -1,15 +1,29 @@
 .message {
     margin: 0;
+    margin-bottom: 12px;
     font-weight: bold;
     padding-bottom: 4px;
+}
+
+.message:after {
+    content: ""; /* This is necessary for the pseudo element to work. */ 
+    display: block; /* This will put the pseudo element on its own line. */
+    width: 5%; /* Change this to whatever width you want to have before hover. */
+    padding-top: 20px; /* This creates some space between the element and the border. */
+    border-bottom: 1px solid #6d7993; /* This creates the border. Replace black with whatever color you want. */
+    transition: .5s; /* This establishes the amount of time in seconds the animation should take from start to finish */
 }
 
 .message:hover {
     background-color: rgb(240, 240, 240);
 }
 
+.message:hover:after {
+    width:90%;
+}
+
 .message .message-username {
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 400;
     color: black;
     opacity: 0.9;
@@ -21,7 +35,7 @@
 
 .message .message-text {
     /* background: var(--main-color); */
-    /* color: var(--secondary-color); */
+    color: #606060;
     font-size: 18px;
     display: inline;
     padding-top: 4px;

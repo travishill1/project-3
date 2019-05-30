@@ -6,7 +6,7 @@ import RoomList from '../components/RoomList'
 import NewRoomForm from '../components/NewRoomForm';
 import MiniProfile from '../components/MiniProfile';
 import TypingIndicator from '../components/TypingIndicator';
-import OnlineList from '../components/OnlineList';
+// import OnlineList from '../components/OnlineList';
 import './App.css';
 
 class App extends React.Component {
@@ -64,6 +64,10 @@ class App extends React.Component {
   }
 
   subscribeToRoom(roomId) {
+    // var onlineDiv = document.querySelector('.online-list-items');
+    // if (onlineDiv === !null){
+    //   onlineDiv.textContent = (' ');
+    // }
     this.setState({ messages: [] })
     return this.currentUser.subscribeToRoom({
       roomId: roomId,
@@ -93,10 +97,11 @@ class App extends React.Component {
 
         onPresenceChanged: (state, user) => {
           if (state.current === 'online') {
-            var el = document.querySelector('.online-list');
-            var newEl = document.createElement('p');
-            newEl.appendChild(document.createTextNode(`${user.name} is ${state.current}`));
-            el.appendChild(newEl);
+            
+            var onlineDiv = document.querySelector('.online-list-items');
+            var onlineUser = document.createElement('p');
+            onlineUser.appendChild(document.createTextNode(`${user.name}`));
+            onlineDiv.appendChild(onlineUser);
             // alert(`User ${user.name} is ${state.current}`)
             // console.log(`User ${user.name} is ${state.current}`)
           }
@@ -142,7 +147,7 @@ class App extends React.Component {
         <MiniProfile
           currentUser={this.props.location.state.currentUser.id}
         />
-        {console.log("Render - this.props: ", this.props)}
+        {/* {console.log("Render - this.props: ", this.props)} */}
         {/* {console.log("Render - this.props.state.currentUser: ", this.state.currentUser)} */}
         {/* {console.log("Render - this.props.location.state.currentUser.id: ",this.props.location.state.currentUser.id)} */}
         <RoomList
@@ -151,6 +156,9 @@ class App extends React.Component {
           rooms={[...this.state.joinableRooms, ...this.state.joinedRooms]} />
         <div className="online-list">
           <h2>Online:</h2>
+          <div className="online-list-items">
+            <p></p>
+          </div>
           {/* NEED TO FIND RIGHT KEYWORD HERE, original - {this.state.currentRoom.users}: */}
           {/* <OnlineList
             users={this.state.joinedRooms.users}

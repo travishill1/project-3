@@ -1,7 +1,7 @@
 :root {
     --main-color: #5ea3d0;
     --secondary-color: white;
-    --main-text-color: #3e5869;
+    --main-text-color: #dcb239;
     --secondary-text-color: #b0c7d6;
     --send-message-form: #F5F5F5;
 }
@@ -12,7 +12,7 @@ html, body {
     padding: 0;
     font-family: system-ui;
     font-weight: 200;
-    color: 	#3e5869; 
+    color: 	#dcb239; 
 }
 
 #root {
@@ -30,7 +30,7 @@ html, body {
         "r m m m m m"
         "r m m m m m"
         "r m m m m m"
-        "n s s s s s";
+        "n n s s s s";
 }
 
 .new-room-form {

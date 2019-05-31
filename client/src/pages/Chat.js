@@ -37,7 +37,11 @@ const styleDiv = {
   padding: 0,
   width: "90%",
   margin: "auto auto",
+<<<<<<< HEAD
   height: "600px",
+=======
+  height: "700px",
+>>>>>>> origin/master
   overflow: "scroll",
   top: "20px",
   left: "70px"

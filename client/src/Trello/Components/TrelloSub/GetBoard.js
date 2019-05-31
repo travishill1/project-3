@@ -23,7 +23,11 @@ const styleDiv= {
 
 const styleBoardName={
     height: "auto",
+<<<<<<< HEAD
     width: "auto",
+=======
+    width: "25%",
+>>>>>>> origin/master
     border: "none",
     fontSize: "40px", 
     backgroundColor: "rgb(19, 116, 142)",
@@ -47,6 +51,7 @@ const styleAddBtn = {
 }
 
 const showCardsStyle={
+<<<<<<< HEAD
   
  
    height: "50px",
@@ -83,6 +88,12 @@ const styleSaveBtn={
    
    }
 
+=======
+   backgroundColor: "rgb(19, 116, 142)",
+   border: "transparent"
+}
+
+>>>>>>> origin/master
 
 
 
@@ -94,12 +105,19 @@ class GetBoard extends Component{
      this.state={
          boardId: "",
          boardLoaded: false,
+<<<<<<< HEAD
          boardName: "Here is your Board",
          boardList: [],
          cardsList: "",
          cardsDesc: "",
          show: true,
          button: false
+=======
+         boardName: "This is your Board",
+         boardList: [],
+         cardsList: "",
+         cardsDesc: ""
+>>>>>>> origin/master
      }
 
    
@@ -140,10 +158,14 @@ class GetBoard extends Component{
 
     showCards(){
     console.log("componentMounted");
+<<<<<<< HEAD
     console.log(this.state.boardId);
     this.setState({show:false})
     this.setState({button: true})
     
+=======
+    console.log(this.state.boardId)
+>>>>>>> origin/master
     var data = null;
 
         var xhr = new XMLHttpRequest();
@@ -179,6 +201,7 @@ class GetBoard extends Component{
             <div style={styleDiv}>
            
             <div >
+<<<<<<< HEAD
 
                 {this.state.show?<button style={showCardsStyle} onClick={this.showCards}>Show Cards</button>:null}
                 
@@ -188,13 +211,22 @@ class GetBoard extends Component{
                 <form onSubmit={this.handleSubmit}>
                 
                 
+=======
+               
+
+                <form onSubmit={this.handleSubmit}>
+>>>>>>> origin/master
               
                  <input style={styleBoardName} type="text" value={this.state.boardName} onChange={this.handleChange} />
                 
                  <input style = {styleAddBtn} type="submit" value="&#8635;" />
                 </form>
 
+<<<<<<< HEAD
                 
+=======
+                <button style={showCardsStyle} onClick={this.showCards}>Show Cards</button>
+>>>>>>> origin/master
                
                {this.state.boardList.map(item=>(
                    <ul key={item.id} style= {styleUl}>
@@ -206,11 +238,17 @@ class GetBoard extends Component{
                ))}
 
                {this.state.boardLoaded?console.log(this.state.boardId):console.log("null")}
+<<<<<<< HEAD
 
                
             </div>
          
             {this.state.button?<button style={styleSaveBtn} onClick={this.props.saveFunction}>Save</button>:null}
+=======
+            </div>
+         
+           
+>>>>>>> origin/master
             </div>
         )
     }

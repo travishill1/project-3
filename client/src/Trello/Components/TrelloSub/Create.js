@@ -8,6 +8,7 @@ const styleDiv = {
   margin: "0px"
 }
 
+<<<<<<< HEAD
 const styleh1={
   fontSize: "60px",
   margin: "200px",
@@ -15,10 +16,28 @@ const styleh1={
 }
 
 
+=======
+const styleSaveBtn={
+ marginTop: "210px",
+ marginBottom: "40px",
+ backgroundColor: "#4CAF50",
+ height: "40px",
+ width: "80px",
+ borderRadius: "10%",
+ color: "white",
+ textDecoration: "none",
+ display: "inlineBlock",
+fontSize: "20px",
+fontWeight: "bold"
+
+
+}
+>>>>>>> origin/master
 
 const styleAccessBtn={
   marginTop: "20px",
   padding: 0,
+<<<<<<< HEAD
   backgroundColor: "rgb(120,25, 51)",
   height: "50px",
   width: "600px",
@@ -30,6 +49,20 @@ const styleAccessBtn={
   fontWeight: "bold"
 
  
+=======
+  backgroundColor: "rgb(77,149, 190)",
+  height: "auto",
+  width: "auto",
+  borderRadius: "5%",
+  color: "white",
+  textDecoration: "none",
+  display: "inlineBlock",
+ fontSize: "20px",
+ 
+ "&:hover": {
+   height: "600px"
+ }
+>>>>>>> origin/master
  }
 
 
@@ -47,7 +80,11 @@ class Create extends Component{
                       roomId: "194228190",
                       boardExists: false,
                       startBoard: false,
+<<<<<<< HEAD
                       show: false
+=======
+                      message: ""
+>>>>>>> origin/master
       };
     
        
@@ -63,8 +100,11 @@ class Create extends Component{
 
 
 checkBoard(){
+<<<<<<< HEAD
 
   this.setState({show: true})
+=======
+>>>>>>> origin/master
   console.log("abc")
 
 var self = this;
@@ -180,6 +220,7 @@ CreateBoardHandler(){
         return(
          <div>
           <div style = {styleDiv}>
+<<<<<<< HEAD
           {!this.state.show?<h1 style={styleh1}>Welcome to Sello Board</h1>:null}
            {!this.state.show?<button style={styleAccessBtn} onClick = {this.checkBoard}>Acess your Trello Board &#x2192;</button>:null}
            {this.state.show?<GetBoard boardID={this.state.boardId} boardIDs={this.state.boardId} saveFunction={this.save}></GetBoard>: null}
@@ -188,6 +229,14 @@ CreateBoardHandler(){
           </div>
           
         </div>
+=======
+           <button style={styleAccessBtn} onClick = {this.checkBoard}>Acess your Trello Board &#x2192;</button>
+          {<GetBoard boardID={this.state.boardId} boardIDs={this.state.boardId}></GetBoard>}
+          {console.log(this.state.boardId)}
+          </div>
+          {<button onClick={this.save} style= {styleSaveBtn}>Save</button>}
+          </div>
+>>>>>>> origin/master
         )
     }
 

@@ -16,24 +16,24 @@ import Button from "react-bootstrap/Button";
 
 
 let roomNo;
-const style ={
+const style = {
   height: "10px",
   width: "auto",
   zIndex: 1,
-  overlay: {zIndex: 1000},
+  overlay: { zIndex: 1000 },
   textAlign: "center",
   position: "absoulte",
   top: "-100px",
   backgroundColor: "red",
   left: -500,
-  opacity : 1,
+  opacity: 1,
   alignItems: "center"
-  
+
 }
 
 const styleDiv = {
   backgroundColor: "rgb(19, 116, 142)",
- position: "absolute",
+  position: "absolute",
   padding: 0,
   width: "90%",
   margin: "auto auto",
@@ -149,7 +149,7 @@ class App extends React.Component {
             var newEl = document.createElement('p');
             newEl.appendChild(document.createTextNode(`${user.name}`));
             el.appendChild(newEl);
-            
+
           }
         }
       }
@@ -186,7 +186,7 @@ class App extends React.Component {
       .catch(error => console.error('error', error))
   }
 
-  
+
 
   render() {
 
@@ -197,12 +197,12 @@ class App extends React.Component {
         <MiniProfile
           currentUser={this.props.location.state.currentUser}
         />
-        {console.log("Render - this.props: ", this.props)}
+        {/* {console.log("Render - this.props: ", this.props)} */}
         {/* {console.log("Render - this.props.state.currentUser: ", this.state.currentUser)} */}
         {/* {console.log("Render - this.props.location.state.currentUser.id: ",this.props.location.state.currentUser.id)} */}
 
         <RoomList
-        
+
           roomId={this.state.roomId}
           subscribeToRoom={this.subscribeToRoom}
           rooms={[...this.state.joinableRooms, ...this.state.joinedRooms]} />
@@ -216,7 +216,9 @@ class App extends React.Component {
         <NewRoomForm createRoom={this.createRoom} />
         <MessageList
           roomId={this.state.roomId}
-          messages={this.state.messages} />
+          messages={this.state.messages}
+          currentURL={this.props.location.state.currentUser.avatar_url} />
+          {console.log("Render - avatar_URL from currentUser: ", this.props.location.state.currentUser.avatar_url)}
         <TypingIndicator usersWhoAreTyping={this.state.usersWhoAreTyping} />
         <SendMessageForm
           disabled={!this.state.roomId}
@@ -224,33 +226,33 @@ class App extends React.Component {
           onChange={this.sendTypingEvent}
         />
 
-        
-        <div style= {div}>
-            <Button variant="primary" onClick={this.handleShow}>
-              My Trello
+
+        <div style={div}>
+          <Button variant="primary" onClick={this.handleShow}>
+            My Trello
             </Button>
-    
-            <Modal style={style}
-            
-           
-              show={this.state.show}
-              onHide={this.handleHide}
-              dialogClassName="modal-90w"
-              aria-labelledby="example-custom-modal-styling-title"
-            >
-              
-              <Modal.Body>
-              
-                  <div style={styleDiv}>
-                  <button style={closeButtonStyle} onClick={this.handleHide}>X</button>
-                    
-                  <Create roomId={this.state.roomId}></Create>
-                 
-                
-                </div>
-              </Modal.Body>
-            </Modal>
-          </div>
+
+          <Modal style={style}
+
+
+            show={this.state.show}
+            onHide={this.handleHide}
+            dialogClassName="modal-90w"
+            aria-labelledby="example-custom-modal-styling-title"
+          >
+
+            <Modal.Body>
+
+              <div style={styleDiv}>
+                <button style={closeButtonStyle} onClick={this.handleHide}>X</button>
+
+                <Create roomId={this.state.roomId}></Create>
+
+
+              </div>
+            </Modal.Body>
+          </Modal>
+        </div>
 
       </div>
     )
@@ -259,4 +261,4 @@ class App extends React.Component {
 }
 
 export default App;
-export var roomID= {roomNo}
+export var roomID = { roomNo }

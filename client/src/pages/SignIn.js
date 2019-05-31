@@ -49,7 +49,7 @@ class SignIn extends React.Component {
 
   handleSubmit = (e) => {
     const email = e.email;
-    const password = e.password;
+    //const password = e.password;
 
     // chatkit stuff
     const chatkit = new Chatkit({
@@ -155,7 +155,7 @@ class SignIn extends React.Component {
             )}
           </Form>
           <Typography align="center">
-            <Link underline="always" href="/premium-themes/onepirate/forgot-password">
+            <Link underline="always" href="/">
               Forgot password?
             </Link>
           </Typography>

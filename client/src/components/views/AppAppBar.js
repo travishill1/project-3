@@ -19,7 +19,13 @@ const styles = theme => ({
   },
   left: {
     flex: 1,
-    marginLeft: -1150,
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+  leftLink: {
+    fontSize: 20,
+    color: theme.palette.common.white,
+    marginLeft: theme.spacing.unit * 2,
   },
   leftLinkActive: {
     color: theme.palette.common.white,
@@ -48,14 +54,14 @@ function AppAppBar(props) {
     <div>
       <AppBar position="fixed">
         <Toolbar className={classes.toolbar}>
-          <div className={classes.left} />
+          <div className={classes.leftLink} />
           <Link component={RouterLink} to="/" 
             variant="h6"
             underline="hover"
             color="inherit"
-            className={classes.title}
+            className={classes.leftLink}
           >
-            {'Slello'}
+            {'Welcome to Slello'}
           </Link>
           <div className={classes.right}>
           <Link component={RouterLink} to="/signin"

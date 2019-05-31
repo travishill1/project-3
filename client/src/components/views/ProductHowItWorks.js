@@ -34,7 +34,7 @@ const styles = theme => ({
   number: {
     fontSize: 24,
     fontFamily: theme.typography.fontFamily,
-    color: theme.palette.secondary.main,
+    color: theme.palette.primary.main,
     fontWeight: theme.typography.fontWeightMedium,
   },
   image: {
@@ -59,11 +59,6 @@ function ProductHowItWorks(props) {
   return (
     <section className={classes.root}>
       <LayoutBody className={classes.layoutBody} width="large">
-        <img
-          src="/static/themes/onepirate/productCurvyLines.png"
-          className={classes.curvyLines}
-          alt="curvy lines"
-        />
         <Typography variant="h4" marked="center" className={classes.title} component="h2">
           How it works
         </Typography>

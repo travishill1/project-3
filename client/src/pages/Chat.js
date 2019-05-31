@@ -100,13 +100,8 @@ class App extends React.Component {
         this.setState({ currentUser })
         console.log("chatManager currentUser:", currentUser);
         this.getRooms()
-        this.getMiniProfile()
       })
       .catch(err => console.log('error on connecting: ', err))
-  }
-
-  getMiniProfile() {
-    // code that generates the MiniProfile info, if needed
   }
 
   getRooms() {
@@ -152,10 +147,9 @@ class App extends React.Component {
           if (state.current === 'online') {
             var el = document.querySelector('.online-list');
             var newEl = document.createElement('p');
-            newEl.appendChild(document.createTextNode(`${user.name} is ${state.current}`));
+            newEl.appendChild(document.createTextNode(`${user.name}`));
             el.appendChild(newEl);
-            // alert(`User ${user.name} is ${state.current}`)
-            // console.log(`User ${user.name} is ${state.current}`)
+            
           }
         }
       }
@@ -201,10 +195,7 @@ class App extends React.Component {
 
 
         <MiniProfile
-           onClick={(event) => {
-            event.preventDefault();
-            }}
-          currentUser={this.props.location.state.currentUser.id}
+          currentUser={this.props.location.state.currentUser}
         />
         {console.log("Render - this.props: ", this.props)}
         {/* {console.log("Render - this.props.state.currentUser: ", this.state.currentUser)} */}

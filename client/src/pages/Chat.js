@@ -37,7 +37,9 @@ const styleDiv = {
   padding: 0,
   width: "90%",
   margin: "auto auto",
-  height: "700px",
+
+  height: "600px",
+
   overflow: "scroll",
   top: "20px",
   left: "70px"
@@ -199,6 +201,9 @@ class App extends React.Component {
 
 
         <MiniProfile
+           onClick={(event) => {
+            event.preventDefault();
+            }}
           currentUser={this.props.location.state.currentUser.id}
         />
         {console.log("Render - this.props: ", this.props)}

@@ -52,6 +52,10 @@ class GetCards extends Component{
         this.handleChangeCards=this.handleChangeCards.bind(this);
         this.handleSubmitCards=this.handleSubmitCards.bind(this);
         this.addCardsHandler=this.addCardsHandler.bind(this);
+<<<<<<< HEAD
+        this.deleteCards=this.deleteCards.bind(this);
+=======
+>>>>>>> origin/master
 
     
           
@@ -135,7 +139,12 @@ class GetCards extends Component{
         console.log(this.state.cardsDesc);
         console.log(event.target.getAttribute("data-index"));
         this.addCardsHandler(this.state.cardsDesc, event.target.getAttribute("data-index"));
+<<<<<<< HEAD
+        this.setState({cardsDesc: ""})
+     
+=======
         this.updateCardsHandler();
+>>>>>>> origin/master
 
     }
 
@@ -143,10 +152,22 @@ class GetCards extends Component{
         var data = null;
 
         var xhr = new XMLHttpRequest();
+<<<<<<< HEAD
+        var self=this;
+
+        xhr.addEventListener("readystatechange", function () {
+        if (this.readyState === this.DONE) {
+            var data = this.responseText
+            var jsonResponse = JSON.parse(data);
+            
+            console.log(jsonResponse);
+            self.setState({cardArray: [...self.state.cardArray, jsonResponse]})
+=======
 
         xhr.addEventListener("readystatechange", function () {
         if (this.readyState === this.DONE) {
             console.log(this.responseText);
+>>>>>>> origin/master
         }
         });
 
@@ -155,6 +176,43 @@ class GetCards extends Component{
         xhr.send(data);
     }
 
+<<<<<<< HEAD
+    deleteCards(event){
+        event.preventDefault()
+        console.log(event.target.getAttribute("data-index"));
+        
+        console.log(this.state.cardArray);
+        this.delete(event.target.getAttribute("data-index"));
+
+        let array = this.state.cardArray
+        console.log(array)
+
+        array.map(item=>(
+            item.id===event.target.getAttribute("data-index")?
+            
+            array.splice(array.indexOf(item),1):null
+        ))
+
+        this.setState({cardArray: array})
+    }
+
+    delete(idCards){
+        var data = null;
+
+var xhr = new XMLHttpRequest();
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("DELETE", "https://api.trello.com/1/cards/"+idCards+"?key=f9852088f40aeaff1db849dd3f178d48&token=83f492d37b9f9500a9e0ccc5cb8d9a73560334446deab360aed72af494fb961b");
+
+xhr.send(data);
+    }
+=======
+>>>>>>> origin/master
     
 
     
@@ -167,12 +225,21 @@ render(){
                 {this.props.id===item.idList?
                  <form onSubmit={this.handleSubmit} data-index={item.id} >
                  <input key={item.id} style={styleLi} type="text" value={item.name} data-number={this.state.cardArray.indexOf(item)} onChange={this.handleChange} />
+<<<<<<< HEAD
+                 <input  style = {styleUpdate} type="submit" value="&#9998;"/>
+                <button data-index={item.id} onClick={this.deleteCards}>&#9851;</button>
+                </form> :null}
+            </div>
+        ))}
+       
+=======
                  <input  style = {styleUpdate} type="submit" value="&#10003;"/>
                  <input  style = {styleUpdate} type="button" value="Del"/>
                 </form> :null}
             </div>
         ))}
         {/* <li key={item.id} style={styleLi}>{item.name}</li> */}
+>>>>>>> origin/master
         {console.log(this.state.cardArray)}
 
         <form onSubmit={this.handleSubmitCards} data-index={this.props.dataIndex}>

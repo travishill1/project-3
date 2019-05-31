@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import LayoutBody from '../LayoutBody';
 import Typography from '../Typography';
+import { FormHelperText } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
@@ -20,6 +21,7 @@ function ProductCategories(props) {
       <Typography variant="h4" marked="center" align="center" component="h2">
         Integrate with project management apps.
       </Typography>
+      <img src={require("./img/Untitled.png")} width="100%" />
     </LayoutBody>
   );
 }

@@ -54,10 +54,10 @@ function ProductValues(props) {
 
 
               <Typography variant="h6" className={classes.title}>
-                Unlimited number of groups.
+                Unlock a new hieght of organization with grouping.
               </Typography>
               <Typography variant="h5">
-                {'Say something cool'}
+                {'Create and Personalize as many groups your team needs. Organize by project, team, technology and more.'}
               </Typography>
             </div>
           </Grid>
@@ -69,7 +69,7 @@ function ProductValues(props) {
                 Grow as a team.
               </Typography>
               <Typography variant="h5">
-                {'Say something cool'}
+                {"Give your team the tool necessary to collaborate easily. With our built in chat environment and card organizer will keep everybody in the loop of what you're working on."}
               </Typography>
             </div>
           </Grid>
@@ -81,7 +81,7 @@ function ProductValues(props) {
                 Increase your productivity.
               </Typography>
               <Typography variant="h5">
-                {'Say something cool'}
+                {"With our User Friendly and Intuitive chat environment, there's no hassle trying to set it up. Just Create and room and start chatting away!"}
               </Typography>
             </div>
           </Grid>

@@ -50,9 +50,11 @@ class SignUp extends React.Component {
   handleSubmit = (e) => {
     const email = e.email;
     const password = e.password;
+    const avatarURL = e.avatarURL;
       API.saveUser({
         username: email,
-        password: password
+        password: password,
+        avatarURL: avatarURL
       })
       .then(res => console.log(res))
       .catch(err => console.log(err))
@@ -66,7 +68,8 @@ class SignUp extends React.Component {
     // creating new user on sign up
     chatkit.createUser({
       name: email,
-      id: email
+      id: email,
+      avatarURL: avatarURL
     })
     // 
     .then(currentUser => {
@@ -136,6 +139,16 @@ class SignUp extends React.Component {
                   autoComplete="current-password"
                   label="Password"
                   type="password"
+                  margin="normal"
+                />
+                <Field
+                  fullWidth
+                  component={RFTextField}
+                  disabled={submitting || sent}
+                  required
+                  name="avatarURL"
+                  autoComplete="current-avatarURL"
+                  label="Avatar URL"
                   margin="normal"
                 />
                 <FormSpy subscription={{ submitError: true }}>

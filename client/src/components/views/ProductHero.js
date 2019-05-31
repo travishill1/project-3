@@ -36,11 +36,9 @@ function ProductHero(props) {
     <ProductHeroLayout backgroundClassName={classes.background}>
       {/* Increase the network loading priority of the background image. */}
       <img style={{ display: 'none' }} src={backgroundImage} alt="" />
-      <Typography color="black" align="center" variant="h2" marked="center">
-        (Logo)
-      </Typography>
+      <img src={require("./img/logo2.png")} alt="logo"/>
       <Typography color="black" align="center" variant="h5" className={classes.h5}>
-        (Something)
+        Quick and Easy Communication and Organization, all in one App!
       </Typography>
       <Button
         color="secondary"

@@ -1,6 +1,6 @@
 .rooms-list {
     box-sizing: border-box;
-    background-color: rgb(85, 201, 191);
+    background-color: rgb(36,47,60);
     overflow: auto;
     height: 60%;
     float: left;
@@ -36,7 +36,7 @@ li.room {
 }
 
 li.room:hover {
-    background-color: #fedcd2;
+    background-color: #4f4c5f;
 }
 
 .rooms-list h3 {

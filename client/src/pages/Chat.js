@@ -168,7 +168,11 @@ class App extends React.Component {
         <NewRoomForm createRoom={this.createRoom} />
         <MessageList
           roomId={this.state.roomId}
-          messages={this.state.messages} />
+          messages={this.state.messages}
+          currentURL={this.props.location.state.currentUser.avatar_url} 
+          />
+          {console.log("Render - avatar_URL from currentUser: ", this.props.location.state.currentUser.avatar_url)}
+          {/* {console.log("Render - this.props.message: ", this.messages)} */}
         <TypingIndicator usersWhoAreTyping={this.state.usersWhoAreTyping} />
         <SendMessageForm
           disabled={!this.state.roomId}

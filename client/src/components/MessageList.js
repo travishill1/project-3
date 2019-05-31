@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Message from './Message'
 
+
 class MessageList extends React.Component {
 
     // (Future Feature)
@@ -36,9 +37,9 @@ class MessageList extends React.Component {
         }
         return (
             <div className="message-list">
-                {this.props.messages.map((message, index) => {
+                {this.props.messages.map((message, currentURL, index) => {
                     return (
-                        <Message key={message.id} username={message.senderId} text={message.text} />
+                        <Message key={message.id} username={message.senderId} text={message.text} currentURL={currentURL} />
                         // not recommended to use index but for now its good
                     )
                 })}

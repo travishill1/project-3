@@ -145,7 +145,8 @@ class App extends React.Component {
     return (
       <div className="App">
         <MiniProfile
-          currentUser={this.props.location.state.currentUser.id}
+          currentUser={this.props.location.state.currentUser}
+          // avatarURL={this.props.location.state.currentUser.avatar_url}
         />
         {/* {console.log("Render - this.props: ", this.props)} */}
         {/* {console.log("Render - this.props.state.currentUser: ", this.state.currentUser)} */}

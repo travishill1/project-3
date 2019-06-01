@@ -10,6 +10,10 @@ const styles = theme => ({
     padding: `${theme.spacing.unit * 2 - 1}px ${theme.spacing.unit * 4}px`,
     fontSize: theme.typography.pxToRem(14),
     boxShadow: 'none',
+    '&:hover': {
+      backgroundColor: 'rgb(46, 194, 156)',
+      textDecoration: 'underline',
+    },
     '&:active, &:focus': {
       boxShadow: 'none',
     },

@@ -44,7 +44,7 @@ class Create extends Component{
                       boardCreated: true,
                       mainUser: [{userId: "diwal1", apiKey: "f9852088f40aeaff1db849dd3f178d48", token: "83f492d37b9f9500a9e0ccc5cb8d9a73560334446deab360aed72af494fb961b", email: "diwalpyakurel@gmail.com"}],
                       otherUsers: [{userId: "diwal2", apiKey: "d2b33ac74d86c147e2b8c1d13fdd69be", token: "f3855b1f0c6c15ff2f90265ee69da8ecd1007320395f944286698ff2a554afc0", email: "itz_diwalz@hotmail.com"}],
-                      roomId: "194228190",
+                      roomId: "",
                       boardExists: false,
                       startBoard: false,
                       show: false

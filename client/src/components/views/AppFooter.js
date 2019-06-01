@@ -67,7 +67,7 @@ function AppFooter(props) {
             </Grid>
           <Grid container spacing={40}>  
             <Grid item xs={12} sm={12} md={6}>
-              <div style={text}>Travis Hill, Sarah Maples, Diwal, Mausuf, Jimin Huh, Daniel Barkley</div>
+              <div style={text}>Travis Hill, Sarah Maples, Diwal, Jimin Huh, Daniel Barkley</div>
             </Grid>
             </Grid>
       </LayoutBody>
